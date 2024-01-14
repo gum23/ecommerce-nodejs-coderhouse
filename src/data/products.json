@@ -1,0 +1,24 @@
+[
+  {
+    "title": "guitar",
+    "description": "Guitarra Gibson",
+    "code": "gtr001",
+    "price": 550000,
+    "status": true,
+    "stock": 4,
+    "category": "cuerdas",
+    "thumbnails": "Sin imagen",
+    "id": "0c5e040c-4a35-4759-99e4-d1fa5e6fac2d"
+  },
+  {
+    "title": "guitar Strato",
+    "description": "Guitarra Fender",
+    "code": "gtr002",
+    "price": 680000,
+    "status": true,
+    "stock": 2,
+    "category": "cuerdas",
+    "thumbnails": "Sin imagen",
+    "id": "1d8467cd-a7cd-4e94-b22e-085d13ecb5f1"
+  }
+]
