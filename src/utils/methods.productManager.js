@@ -1,5 +1,4 @@
 import fs, { constants } from "fs/promises";
-import path from "path";
 
 export const PATH = "./src/data/products.json";
 
@@ -32,9 +31,12 @@ export const updateProduct = async (i, product, products) => {
   if (i !== -1) {
     products[i].title = product.title || products[i].title;
     products[i].description = product.description || products[i].description;
-    products[i].price = product.price || products[i].price;
     products[i].code = product.code || products[i].code;
+    products[i].price = product.price || products[i].price;
+    products[i].status = product.status || products[i].status;
     products[i].stock = product.stock || products[i].stock;
+    products[i].category = product.category || products[i].category;
+    products[i].thumbnails = product.thumbnails || products[i].thumbnails;
 
     return await products;
   } else {

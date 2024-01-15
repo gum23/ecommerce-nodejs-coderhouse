@@ -19,8 +19,7 @@ class ProductManager {
       !product.price ||
       !product.status ||
       !product.stock ||
-      !product.category ||
-      !product.thumbnails
+      !product.category
     ) {
       return "Todos los campos son obligatorios";
     }
@@ -85,9 +84,9 @@ class ProductManager {
 
     if (i !== -1) {
       this.products.splice(i, 1);
-
+      
       await methods.writeFile(this.products);
-      return `El producto de id: ${id} fué eliminado correctamente`;
+      return `El producto de id: ${id}\n Fue eliminado correctamente!!`;
     } else {
       return `El id: ${id} ingresado no coincide con ningun producto`;
     }

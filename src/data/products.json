@@ -20,5 +20,19 @@
     "category": "cuerdas",
     "thumbnails": "Sin imagen",
     "id": "1d8467cd-a7cd-4e94-b22e-085d13ecb5f1"
+  },
+  {
+    "title": "Bass Fender",
+    "description": "Bajo stratocaster 4 cuerdas",
+    "code": "bss001",
+    "price": 480000,
+    "status": true,
+    "stock": 3,
+    "category": "cuerdas",
+    "thumbnails": [
+      "imagen_1",
+      "imagen_2"
+    ],
+    "id": "76ae368a-61c5-4d05-ad76-da125ee88e07"
   }
 ]
