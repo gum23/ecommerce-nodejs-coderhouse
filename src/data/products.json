@@ -7,7 +7,9 @@
     "status": true,
     "stock": 4,
     "category": "cuerdas",
-    "thumbnails": "Sin imagen",
+    "thumbnails": [
+      "Sin imagen"
+    ],
     "id": "0c5e040c-4a35-4759-99e4-d1fa5e6fac2d"
   },
   {
@@ -18,7 +20,9 @@
     "status": true,
     "stock": 2,
     "category": "cuerdas",
-    "thumbnails": "Sin imagen",
+    "thumbnails": [
+      "Sin imagen"
+    ],
     "id": "1d8467cd-a7cd-4e94-b22e-085d13ecb5f1"
   },
   {
@@ -34,5 +38,19 @@
       "imagen_2"
     ],
     "id": "76ae368a-61c5-4d05-ad76-da125ee88e07"
+  },
+  {
+    "title": "Bateria Tama",
+    "description": "Bateria basica de 5 cuerpos",
+    "code": "drum001",
+    "price": 950000,
+    "status": true,
+    "stock": 1,
+    "category": "percusion",
+    "thumbnails": [
+      "image_1",
+      "image_2"
+    ],
+    "id": "3869d23c-5033-48f2-a466-747c970f6c43"
   }
 ]

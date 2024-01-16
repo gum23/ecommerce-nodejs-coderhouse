@@ -40,7 +40,6 @@ export const createProduct = async (req, res) => {
       prod.description,
       prod.code,
       prod.price,
-      prod.status,
       prod.stock,
       prod.category,
       prod.thumbnails
