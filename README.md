@@ -9,4 +9,4 @@ Atributos de productos: id, title, description, code, price, status, stock, cate
 Tiene rutas creación, lectura, actualización y eliminació de productos
 
 Atributos de carritos: id, products
-Tiene rutas de creacion y lectura de carritos
+Tiene rutas de creacion de carritos, ruta de agregado de productos por carrito y lectura de carritos

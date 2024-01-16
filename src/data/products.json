@@ -52,5 +52,89 @@
       "image_2"
     ],
     "id": "3869d23c-5033-48f2-a466-747c970f6c43"
+  },
+  {
+    "title": "Boss DS2",
+    "description": "Distorisión",
+    "code": "Acc001",
+    "price": 200000,
+    "status": true,
+    "stock": 3,
+    "category": "Accesorios",
+    "thumbnails": [
+      "image_1",
+      "image_2"
+    ],
+    "id": "a7af50c1-392b-4140-a341-4fccfab445ea"
+  },
+  {
+    "title": "Joyo EQ",
+    "description": "Ecualizador para guitarra Joyo",
+    "code": "Acc002",
+    "price": 120000,
+    "status": true,
+    "stock": 1,
+    "category": "Accesorios",
+    "thumbnails": [
+      "image_1",
+      "image_2"
+    ],
+    "id": "3d99fd97-b65d-4962-a7d8-65931d991b6e"
+  },
+  {
+    "title": "Kit bateria",
+    "description": "Accesorios para bateria",
+    "code": "Acc003",
+    "price": 320000,
+    "status": true,
+    "stock": 2,
+    "category": "Accesorios",
+    "thumbnails": [
+      "image_1",
+      "image_2"
+    ],
+    "id": "a0aff7cf-b55d-40bd-8e46-9b8297f9ccf1"
+  },
+  {
+    "title": "Epiphon les paul",
+    "description": "Guitarra de cuerpo compacto",
+    "code": "gtr003",
+    "price": 520000,
+    "status": true,
+    "stock": 3,
+    "category": "Cuerdas",
+    "thumbnails": [
+      "image_1",
+      "image_2"
+    ],
+    "id": "86451ee2-88d9-41eb-8801-1eef022f03e4"
+  },
+  {
+    "title": "Teclado Casio",
+    "description": "Teclado de 6 octavas, con conexión midi",
+    "code": "tec001",
+    "price": 220000,
+    "status": true,
+    "stock": 2,
+    "category": "Teclas",
+    "thumbnails": [
+      "image_1",
+      "image_2"
+    ],
+    "id": "c471493a-614f-479d-9191-e11f6db615b9"
+  },
+  {
+    "title": "Saxo",
+    "description": "Saxo de bronce lustrado",
+    "code": "air001",
+    "price": 820000,
+    "status": true,
+    "stock": 1,
+    "category": "Vientos",
+    "thumbnails": [
+      "image_1",
+      "image_2"
+    ],
+    "id": "0898a82f-0a5b-4a1f-b6de-af3235d91309"
   }
 ]
