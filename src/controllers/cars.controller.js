@@ -35,6 +35,16 @@ export const createCart = async (req, res) => {
 export const addProduct = async (req, res) => {
     await productManager.initialize();
     await carsManager.initialize();
+
+    const quantity = req.body.quantity;
+
+    if(quantity == null) {
+        return res.status(400).send({
+            messageOne: "Debe de ingresar la cantidad",
+            messageTwo: "En body seleccione JSON",
+            messageThree: "Escriba un json con clave=quantity y valor numérico que desee"
+        });
+    }
     
     try {
         const idCars = req.params.cid;
@@ -42,7 +52,7 @@ export const addProduct = async (req, res) => {
         const getProduct = await productManager.getProductsById(idProduct);
         const product = new ProductOfCar(
             getProduct.id,
-            req.body.quantity
+            quantity
         );
 
         const result = await carsManager.addToCar(idCars, product);
