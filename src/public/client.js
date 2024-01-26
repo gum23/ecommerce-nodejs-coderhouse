@@ -13,19 +13,21 @@ function updateProductList(productList) {
   productList.forEach((product) => {
     productsHTML += `
     
-        <div class="card bg-secondarymb-3 mx-4my-4" style="max-width: 20rem; margin: 12px;">
+        <div class="card mb-3 mx-4my-4" style="max-width: 20rem; margin: 12px;">
             <div class="card-header bg-primary text-white">code: ${product.code}</div>
             <div class="card-body">
                 <h4 class="card-title text-white">${product.title}</h4>
                 <p class="card-text">
-                    <ul class="card-text">
-                        <li>id: ${product.id}</li>
-                        <li>description: ${product.description}</li>
-                        <li>price: ${product.price}</li>
-                        <li>category: ${product.category}</li>
-                        <li>status: ${product.status}</li>
-                        <li>stock: ${product.stock}</li>
-                        thumbnails: <img src="${product.thumbnails}" alt="${product.title}" class="img-fluid image"/>
+                    <ul class="card-text list-unstyled">
+                        <li class="bi bi-file-text"> description: ${product.description}</li>
+                        <li class="bi bi-currency-dollar"> price: ${product.price}</li>
+                        <li class="bi bi-grid"> category: ${product.category}</li>
+                        <li class="bi bi-check-circle"> status: ${product.status}</li>
+                        <li class="bi bi-box"> stock: ${product.stock}</li>
+                        <i class="bi bi-image"></i> thumbnails:
+                        <div class="imageContent"> 
+                          <img src="${product.thumbnails}" alt="${product.title}" class="img-fluid image"/>
+                        </div>
                     </ul>
                 </p>
             </div>

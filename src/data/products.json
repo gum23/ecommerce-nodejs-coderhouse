@@ -128,5 +128,16 @@
       "https://http2.mlstatic.com/D_NQ_NP_615846-MLA31948053568_082019-O.webp"
     ],
     "id": "0898a82f-0a5b-4a1f-b6de-af3235d91309"
+  },
+  {
+    "title": "Guitarra Electroacústica",
+    "description": "Cuerdas de acero",
+    "code": "gtr004",
+    "price": "250000",
+    "status": true,
+    "stock": "4",
+    "category": "Cuerdas",
+    "thumbnails": "https://http2.mlstatic.com/D_NQ_NP_645956-MLA51258901466_082022-O.webp",
+    "id": "734b3b9b-2758-4f23-80d6-4b6aec038ecc"
   }
 ]

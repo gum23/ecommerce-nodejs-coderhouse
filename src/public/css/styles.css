@@ -1,17 +1,18 @@
 body{
-    background-color: #f8f9fa;
+    background-color: #394755;
 }
 
 .card{
-    border: node;
+    padding: 0;
+    border: none;
     border-radius: 15px;
     transition: transform 0.3s;
-    background: linear-gradient(135deg, #3494e5, #ec6ead);
-    color: #fff;
+    background-color: #fff;
+    color: #000;
 }
 
 .allProducts {
-    color: #007bff;
+    color: #fff;
     width: max-content;
     margin: 0 auto;
     margin-bottom: 28px;
@@ -28,7 +29,7 @@ body{
 
 .imageContent {
     width: 200px;
-    height: 276px;
+    height: 200px;
     margin: 0 auto;
 }
 
@@ -43,8 +44,21 @@ body{
     height: max-content;
     display: flex;
     justify-content: center;
+    color: #fff;
+    background-color: #007bff;
 }
 
 .id{
     font-size: smaller;
+}
+
+.titleRealTimeContent{
+    margin: 24px 0;
+}
+
+.titleRealTime{
+    width: max-content;
+    color: #fff;
+    margin: 0 auto;
+    margin-top: 12px;
 }
