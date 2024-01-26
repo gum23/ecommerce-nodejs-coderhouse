@@ -1,5 +1,5 @@
 <div class="container mt-5">
-    <h1 class="">Products</h1>
+    <h1 class="allProducts">Todos los Products</h1>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
         {{#each products}}
             <div class="col mb-4">
@@ -15,14 +15,17 @@
                             <li class="bi bi-grid"> Category: {{this.category}}</li>
                             <li class="bi bi-check-circle"> Statuc: {{this.status}}</li>
                             <li class="bi bi-box"> Stock: {{this.stock}}</li>
-                            <li>
-                                <i class="bi bi-image"></i> Image: <img src="{{this.thumbnails}}" alt="{{this.title}}" class="img-fluid mt-2"/>
+                            <li class="iconImgContent">
+                                <i class="bi bi-image"></i> Image:
+                                <div class="imageContent">
+                                    <img src="{{this.thumbnails}}" alt="{{this.title}}" class="img-fluid mt-2 image"/>
+                                </div> 
                             </li>
                         </ul>
                     </div>
                     <div class="card-footer">
                         <ul class="list-unstyled">
-                            <li class="bi bi-info-circle id"> ID: {{this.id}}</li>
+                            <i class="bi bi-info-circle"></i><li class="id">ID: {{this.id}}</li>
                         </ul>
                     </div>
                 </div>
@@ -31,6 +34,3 @@
     </div>
     
 </div>
-
-<script src="/socket.io/socket.io.js"></script>
-<script src="/client.js"></script>

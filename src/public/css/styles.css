@@ -10,6 +10,13 @@ body{
     color: #fff;
 }
 
+.allProducts {
+    color: #007bff;
+    width: max-content;
+    margin: 0 auto;
+    margin-bottom: 28px;
+}
+
 .card-header{
     background-color: #007bff;
     color: #fff;
@@ -17,6 +24,19 @@ body{
 
 .card:hover{
     transform: scale(1.05);
+}
+
+.imageContent {
+    width: 200px;
+    height: 276px;
+    margin: 0 auto;
+}
+
+.image{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 16px;
 }
 
 .card-footer{

@@ -1,9 +1,134 @@
-<div>
-    <h1>Todos los Productos</h1>
-    <br>
-    <div id="products"></div>
-</div>
+<form class="row g-3 mx-4" id="formProduct">
+  <h2 class="mb-4">Real Time Products</h2>
 
+  <div class="col-md-6">
+    <label for="title" class="form-label">Nombre del Producto</label>
+    <div class="input-group">
+      <span class="input-group-text"><i class="bi bi-box"></i></span>
+      <input
+        class="form-control"
+        type="text"
+        name="title"
+        id="title"
+        placeholder="Guitarra acústica"
+        required
+      />
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <label for="description" class="form-label">Descripción</label>
+    <div class="input-group">
+      <span class="input-group-text"><i class="bi bi-box"></i></span>
+      <input
+        class="form-control"
+        type="text"
+        name="description"
+        id="description"
+        placeholder="Cuerdas de nylon"
+        required
+      />
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <label for="stock" class="form-label">Stock</label>
+    <div class="input-group">
+      <span class="input-group-text"><i class="bi bi-box"></i></span>
+      <input
+        class="form-control"
+        type="number"
+        name="stock"
+        id="stock"
+        placeholder="3"
+        required
+      />
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <label for="thumbnails" class="form-label">Imágen</label>
+    <div class="input-group">
+      <span class="input-group-text"><i class="bi bi-image"></i></span>
+      <input
+        class="form-control"
+        type="text"
+        name="thumbnails"
+        id="thumbnails"
+        placeholder="https://example.com/image.jpg"
+        required
+      />
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <label for="category" class="form-label">Categoría</label>
+    <div class="input-group">
+      <span class="input-group-text"><i class="bi bi-box"></i></span>
+      <input
+        class="form-control"
+        type="text"
+        name="category"
+        id="category"
+        placeholder="cuerdas"
+        required
+      />
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <label for="price" class="form-label">Precio</label>
+    <div class="input-group">
+      <span class="input-group-text"><i class="bi bi-box"></i></span>
+      <input
+        class="form-control"
+        type="number"
+        name="price"
+        id="price"
+        placeholder="1000"
+        required
+      />
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="form-check mt-4">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        name="status"
+        id="flexCheckChecked"
+        value="true"
+        required
+      />
+      <label class="form-check-lbel" for="flexCheckChecked">Estado</label>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <label for="code" class="form-label">Código</label>
+    <div class="input-group">
+      <span class="input-group-text"><i class="bi bi-tag"></i></span>
+      <input
+        class="form-control"
+        type="text"
+        name="code"
+        id="code"
+        placeholder="123abc"
+        required
+      />
+    </div>
+  </div>
+
+  <div class="col-12 mt-4">
+    <button class="btn btn-primary" type="submit" id="add-btn">Guardar</button>
+  </div>
+
+</form>
+
+<div class="row mt-4 justify-content-center" id="list-products">
+
+</div>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="/client.js"></script>

@@ -8,7 +8,7 @@
     "stock": 4,
     "category": "cuerdas",
     "thumbnails": [
-      "Sin imagen"
+      "https://http2.mlstatic.com/D_NQ_NP_742752-MLA48701763262_122021-O.webp"
     ],
     "id": "0c5e040c-4a35-4759-99e4-d1fa5e6fac2d"
   },
@@ -21,7 +21,7 @@
     "stock": 2,
     "category": "cuerdas",
     "thumbnails": [
-      "Sin imagen"
+      "https://http2.mlstatic.com/D_NQ_NP_916576-MLA51601879667_092022-O.webp"
     ],
     "id": "1d8467cd-a7cd-4e94-b22e-085d13ecb5f1"
   },
@@ -34,8 +34,7 @@
     "stock": 3,
     "category": "cuerdas",
     "thumbnails": [
-      "imagen_1",
-      "imagen_2"
+      "https://http2.mlstatic.com/D_NQ_NP_721867-MLA52482586073_112022-O.webp"
     ],
     "id": "76ae368a-61c5-4d05-ad76-da125ee88e07"
   },
@@ -48,8 +47,7 @@
     "stock": 1,
     "category": "percusion",
     "thumbnails": [
-      "image_1",
-      "image_2"
+      "https://http2.mlstatic.com/D_NQ_NP_865003-MLA51232431657_082022-O.webp"
     ],
     "id": "3869d23c-5033-48f2-a466-747c970f6c43"
   },
@@ -62,22 +60,20 @@
     "stock": 3,
     "category": "Accesorios",
     "thumbnails": [
-      "image_1",
-      "image_2"
+      "https://http2.mlstatic.com/D_NQ_NP_829952-MLA49063711517_022022-O.webp"
     ],
     "id": "a7af50c1-392b-4140-a341-4fccfab445ea"
   },
   {
     "title": "Joyo EQ",
-    "description": "Ecualizador para guitarra Joyo",
+    "description": "Ecualizador para guitarra",
     "code": "Acc002",
     "price": 120000,
     "status": true,
     "stock": 1,
     "category": "Accesorios",
     "thumbnails": [
-      "image_1",
-      "image_2"
+      "https://http2.mlstatic.com/D_NQ_NP_608583-MLA31040314613_062019-O.webp"
     ],
     "id": "3d99fd97-b65d-4962-a7d8-65931d991b6e"
   },
@@ -90,36 +86,33 @@
     "stock": 2,
     "category": "Accesorios",
     "thumbnails": [
-      "image_1",
-      "image_2"
+      "https://http2.mlstatic.com/D_NQ_NP_995074-MLA54648249628_032023-O.webp"
     ],
     "id": "a0aff7cf-b55d-40bd-8e46-9b8297f9ccf1"
   },
   {
     "title": "Epiphon les paul",
-    "description": "Guitarra de cuerpo compacto",
+    "description": "Guitarra cuerpo compacto",
     "code": "gtr003",
     "price": 520000,
     "status": true,
     "stock": 3,
     "category": "Cuerdas",
     "thumbnails": [
-      "image_1",
-      "image_2"
+      "https://http2.mlstatic.com/D_NQ_NP_718865-MLU70036155617_062023-O.webp"
     ],
     "id": "86451ee2-88d9-41eb-8801-1eef022f03e4"
   },
   {
     "title": "Teclado Casio",
-    "description": "Teclado de 6 octavas, con conexión midi",
+    "description": "Teclado de 6 octavas",
     "code": "tec001",
     "price": 220000,
     "status": true,
     "stock": 2,
     "category": "Teclas",
     "thumbnails": [
-      "image_1",
-      "image_2"
+      "https://http2.mlstatic.com/D_NQ_NP_656315-MLA46440121439_062021-O.webp"
     ],
     "id": "c471493a-614f-479d-9191-e11f6db615b9"
   },
@@ -132,8 +125,7 @@
     "stock": 1,
     "category": "Vientos",
     "thumbnails": [
-      "image_1",
-      "image_2"
+      "https://http2.mlstatic.com/D_NQ_NP_615846-MLA31948053568_082019-O.webp"
     ],
     "id": "0898a82f-0a5b-4a1f-b6de-af3235d91309"
   }
