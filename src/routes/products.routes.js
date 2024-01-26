@@ -3,14 +3,14 @@ const router = Router();
 
 import * as productsCtrl from '../controllers/products.controller.js'
 
-router.get("/api/products/", productsCtrl.getProducts);
+router.get("/products/", productsCtrl.getProducts);
 
-router.get("/api/products/:pid", productsCtrl.getProduct);
+router.get("/products/:pid", productsCtrl.getProduct);
 
-router.post("/api/products/", productsCtrl.createProduct);
+router.post("/products/", productsCtrl.createProduct);
 
-router.put("/api/products/:pid", productsCtrl.updateProduct);
+router.put("/products/:pid", productsCtrl.updateProduct);
 
-router.delete("/api/products/:pid", productsCtrl.deleteProduct);
+router.delete("/products/:pid", productsCtrl.deleteProduct);
 
 export default router;

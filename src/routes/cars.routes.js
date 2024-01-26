@@ -3,10 +3,10 @@ const router = Router();
 
 import * as carsCtrl from '../controllers/cars.controller.js';
 
-router.get("/api/carts/:cid", carsCtrl.getCar);
+router.get("carts/:cid", carsCtrl.getCar);
 
-router.post("/api/carts", carsCtrl.createCart);
+router.post("/carts", carsCtrl.createCart);
 
-router.post("/api/carts/:cid/product/:pid", carsCtrl.addProduct);
+router.post("/carts/:cid/product/:pid", carsCtrl.addProduct);
 
 export default router;
