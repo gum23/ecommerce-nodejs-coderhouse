@@ -1,5 +1,5 @@
-import Product from "../classes/Products.js";
-import ProductManager from "../classes/ProductManager.js";
+import Product from "./classes/Products.js";
+import ProductManager from "./classes/ProductManager.js";
 
 const productManager = new ProductManager();
 

@@ -8,7 +8,7 @@ import __dirname from './dirname.util.js';
 import routesProducts from './routes/products.routes.js';
 import routesCars from './routes/cars.routes.js';
 import routesViews from './routes/views.routes.js';
-import { socketProducts } from './listeners/socketProducts.js';
+import { socketProducts } from './socketProducts.js';
 
 
 const PORT = 8080;
