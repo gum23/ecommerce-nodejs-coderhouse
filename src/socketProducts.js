@@ -1,18 +1,16 @@
-import Product from "./classes/Products.js";
-import ProductManager from "./classes/ProductManager.js";
+import Product from "./dao/mongo.classes/ProductsMongo.js";
+import ProductManager from "./dao/mongo.classes/ProductManagerMongo.js";
 
 const productManager = new ProductManager();
 
 export const socketProducts = (socketServer) => {
   socketServer.on("connection", async (socket) => {
-    await productManager.initialize();
 
     const productList = await productManager.getProducts();
     
     socketServer.emit("products", productList);
 
     socket.on("addProduct", async (newProduct) => {
-      await productManager.initialize();
 
       const product = new Product(
         newProduct.title,
@@ -31,7 +29,6 @@ export const socketProducts = (socketServer) => {
     });
 
     socket.on("deleteProduct", async (productId) => {
-      await productManager.initialize();
 
       await productManager.deleteProduct(productId);
 

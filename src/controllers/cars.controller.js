@@ -1,17 +1,17 @@
-import ProductManager from "../classes/ProductManager.js";
-import Cars from '../classes/Cars.js';
-import CarsManager from '../classes/CarsManager.js';
-import ProductOfCar from '../classes/ProductOfCar.js';
+import ProductManagerMongo from "../dao/mongo.classes/ProductManagerMongo.js";
+import CarsMongo from '../dao/mongo.classes/CarsMongo.js';
+import CarsManagerMongo from '../dao/mongo.classes/CarsManagerMongo.js';
+import ProductOfCarMongo from '../dao/mongo.classes/ProductOfCarMongo.js';
 
-const productManager = new ProductManager();
-const carsManager = new CarsManager();
+const productManagerMongo = new ProductManagerMongo();
+const carsManagerMongo = new CarsManagerMongo();
 
 export const getCar = async (req, res) => {
-    await carsManager.initialize();
 
     try {
         const idCar = req.params.cid;
-        const result = await carsManager.showProducts(idCar);
+        console.log(idCar);
+        const result = await carsManagerMongo.showProducts(idCar);
 
         res.status(200).send(result);
     } catch (error) {
@@ -20,23 +20,20 @@ export const getCar = async (req, res) => {
 }
 
 export const createCart = async (req, res) => {
-    await carsManager.initialize();
-
     try {
-        const car = new Cars([]);
-        const result = await carsManager.createCar(car);
-
-        res.status(200).send(result);
+        const newCar = new CarsMongo([]);
+        const resCreate = await carsManagerMongo.createCar(newCar);
+        
+        res.status(200).send(resCreate);
     } catch (error) {
         res.status(500).send(`Error de servidor ${error}`);
     }
 }
 
 export const addProduct = async (req, res) => {
-    await productManager.initialize();
-    await carsManager.initialize();
 
     const quantity = req.body.quantity;
+   
 
     if(quantity == null) {
         return res.status(400).send({
@@ -49,15 +46,15 @@ export const addProduct = async (req, res) => {
     try {
         const idCars = req.params.cid;
         const idProduct = req.params.pid;
-        const getProduct = await productManager.getProductsById(idProduct);
-        const product = new ProductOfCar(
+        const getProduct = await productManagerMongo.getProductsById(idProduct);
+        const product = new ProductOfCarMongo(
             getProduct.id,
             quantity
         );
 
-        const result = await carsManager.addToCar(idCars, product);
+        const result = await carsManagerMongo.addToCar(idCars, product);
 
-        res.send(result);
+        res.status(200).send(result);
     } catch (error) {
         res.status(500).send(`Error de servidor ${error}`);
     }

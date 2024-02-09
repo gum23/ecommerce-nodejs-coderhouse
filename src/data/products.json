@@ -133,7 +133,7 @@
     "title": "Guitarra Electroacústica",
     "description": "Cuerdas de acero",
     "code": "gtr004",
-    "price": "250000",
+    "price": 250000,
     "status": true,
     "stock": "4",
     "category": "Cuerdas",

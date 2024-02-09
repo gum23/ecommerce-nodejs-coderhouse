@@ -1,31 +1,24 @@
-import { Router } from 'express';
+import { Router } from "express";
 const router = Router();
 
-import ProductManager from "../classes/ProductManager.js";
+import ProductManager from "../dao/mongo.classes/ProductManagerMongo.js";
 
 const productManager = new ProductManager();
 
-
 router.get("/home", async (req, res) => {
+  try {
+    const limit = req.query.limit;
 
-    await productManager.initialize();
-  
-    try {
-      // const limit = req.query.limit;
-      // const limitNum = parseInt(limit);
-  
-      const products = await productManager.getProducts();
+    const products = await productManager.getProducts(limit);
 
-      res.status(200).render("home.handlebars", {products});
-
-    } catch (error) {
-      return error;
-    }
-  
-  });
+    res.status(200).render("home.handlebars", { products });
+  } catch (error) {
+    return error;
+  }
+});
 
 router.get("/realtimeproducts", (req, res) => {
-    res.render("realtimeProducts");
+  res.render("realtimeProducts");
 });
 
 export default router;

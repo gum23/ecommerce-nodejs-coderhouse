@@ -1,4 +1,4 @@
-import * as methods from "../utils/methods.productManager.js";
+import * as methods from "../dao/FileSystem/utils/methods.productManager.js";
 
 class ProductManager {
   constructor() {

@@ -1,7 +1,7 @@
 const socket = io();
 
 socket.on("products", (allProducts) => {
-  console.log(allProducts);
+  
   updateProductList(allProducts);
 });
 
@@ -16,7 +16,7 @@ function updateProductList(productList) {
         <div class="card mb-3 mx-4my-4" style="max-width: 20rem; margin: 12px;">
             <div class="card-header bg-primary text-white">code: ${product.code}</div>
             <div class="card-body">
-                <h4 class="card-title text-white">${product.title}</h4>
+                <h4 class="card-title text-black">${product.title}</h4>
                 <p class="card-text">
                     <ul class="card-text list-unstyled">
                         <li class="bi bi-file-text"> description: ${product.description}</li>
@@ -32,7 +32,7 @@ function updateProductList(productList) {
                 </p>
             </div>
             <div class="d-flex justify-content-center mb-4">
-                <button type="button" class="btn btn-danger delete-btn" onClick="deleteProduct('${product.id}')">Eliminar</button>
+                <button type="button" class="btn btn-danger delete-btn" onClick="deleteProduct('${product._id}')">Eliminar</button>
             </div>
         </div>
     

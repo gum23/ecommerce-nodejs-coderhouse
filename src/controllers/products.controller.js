@@ -1,80 +1,75 @@
-import Product from "../classes/Products.js";
-import ProductManager from "../classes/ProductManager.js";
+import Product from "../dao/mongo.classes/ProductsMongo.js";
+import productManager from "../dao/mongo.classes/ProductManagerMongo.js";
 
-const productManager = new ProductManager();
+const ProductManager = new productManager();
 
 export const getProducts = async (req, res) => {
-  await productManager.initialize();
-
   try {
     const limit = req.query.limit;
-    const limitNum = parseInt(limit);
+    const products = await ProductManager.getProducts(limit);
 
-    const result = await productManager.getProducts(limitNum);
-    res.status(200).send(result);
+    res.status(200).send(products);
   } catch (error) {
-    res.status(500).send(`Error de servidor ${error}`);
+    res.status(500).send(`Error de servidor: ${error}`);
   }
-
 };
 
 export const getProduct = async (req, res) => {
-  await productManager.initialize();
-
   try {
     const id = req.params.pid;
-    const result = await productManager.getProductsById(id);
+    const product = await ProductManager.getProductsById(id);
 
-    res.status(200).send(result);
+    res.status(200).send(product);
   } catch (error) {
-    res.status(500).send(`Error de servidor ${error}`);
+    res.status(200).send(`Error de servidor: ${error}`);
   }
 };
 
 export const createProduct = async (req, res) => {
-  await productManager.initialize();
-  const prod = req.body;
   try {
-    const product = new Product(
-      prod.title,
-      prod.description,
-      prod.code,
-      prod.price,
-      prod.stock,
-      prod.category,
-      prod.thumbnails
+    const dataBody = req.body;
+
+    const newProduct = new Product(
+      dataBody.title,
+      dataBody.description,
+      dataBody.code,
+      dataBody.price,
+      dataBody.status,
+      dataBody.stock,
+      dataBody.category,
+      dataBody.thumbnails
     );
-    
-    const result = await productManager.addProduct(product);
-    res.status(200).send(result);
+
+    const resClass = await ProductManager.addProduct(newProduct);
+    res.status(200).send(resClass);
   } catch (error) {
     res.status(500).send(`Error de servidor: ${error}`);
   }
 };
 
 export const updateProduct = async (req, res) => {
-  await productManager.initialize();
-  
-  try {
-    const id = req.params.pid;
-    const product = req.body;
-    const result = await productManager.updateProduct(id, product);
+  const id = req.params.pid;
+  const updateData = req.body;
+  const resUpdate = await ProductManager.updateProduct(id, updateData);
 
-    res.status(200).send(result);
-  } catch (error) {
-    res.status(500).send(`Error de servidor ${error}`);
-  }
+  res.status(200).send({
+    message: "Producto actualizado correctamente",
+    data: resUpdate
+  })
+
 };
 
 export const deleteProduct = async (req, res) => {
-  await productManager.initialize();
-
   try {
     const id = req.params.pid;
-    const result = await productManager.deleteProduct(id);
+  const resDelete = await ProductManager.deleteProduct(id);
 
-    res.status(200).send(result);
+  res.status(200).send({ 
+    message: "El producto eliminado", 
+    data: resDelete 
+  });
+
   } catch (error) {
-    res.status(500).send(`Error de servidor ${error}`);
+    res.status(500).send(`Error de servidor: ${error}`);  
   }
 };
