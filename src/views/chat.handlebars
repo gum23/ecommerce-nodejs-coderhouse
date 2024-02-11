@@ -1,0 +1,14 @@
+<div>
+    <h1 class="chatTitle">Chat</h1>
+
+    <div class="chatContainer" id="chat"></div>
+
+    <form class="chatInsertContainer" onsubmit="return newMessage()">
+        <input type="email" class="chatUser" id="user" placeholder="email@example.com" />
+        <div type="text" class="chatMessage" id="message" contenteditable="true" placeholder="message"></div>
+        <input type="submit" value="Enviar" class="chatButton" id="submitButton" />
+    </form>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/chat.js"></script>

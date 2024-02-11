@@ -11,7 +11,8 @@ import './dao/db/db.js';
 import routesProducts from './routes/products.routes.js';
 import routesCars from './routes/cars.routes.js';
 import routesViews from './routes/views.routes.js';
-import { socketProducts } from './socketProducts.js';
+import routesContact from './routes/contact.routes.js';
+import { sockets } from './sockets/sockets.js';
 
 
 const PORT = 8080;
@@ -35,9 +36,10 @@ app.set("view engine", "handlebars");
 app.use("/api", routesProducts);
 app.use("/api", routesCars);
 app.use("/api", routesViews);
+app.use("/api", routesContact);
 
 server.listen(PORT, () => {
     console.log(`Server listening on port: ${PORT}`);
 });
 
-socketProducts(socketServer);
+sockets(socketServer);

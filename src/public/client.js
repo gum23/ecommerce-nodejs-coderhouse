@@ -1,7 +1,6 @@
 const socket = io();
 
 socket.on("products", (allProducts) => {
-  
   updateProductList(allProducts);
 });
 
@@ -55,6 +54,5 @@ form.addEventListener("submit", (evt) => {
 });
 
 function deleteProduct(productId) {
-  console.log(productId);
   socket.emit("deleteProduct", productId);
 }
