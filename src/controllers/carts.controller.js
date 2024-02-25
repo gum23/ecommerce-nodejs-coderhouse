@@ -1,19 +1,19 @@
 import ProductManagerMongo from "../dao/mongo.classes/ProductManagerMongo.js";
-import CarsMongo from '../dao/mongo.classes/CarsMongo.js';
-import CarsManagerMongo from '../dao/mongo.classes/CarsManagerMongo.js';
-import ProductOfCarMongo from '../dao/mongo.classes/ProductOfCarMongo.js';
+import CartsMongo from '../dao/mongo.classes/CartsMongo.js';
+import CartsManagerMongo from '../dao/mongo.classes/CartsManagerMongo.js';
+import moment from 'moment';
 
 const productManagerMongo = new ProductManagerMongo();
-const carsManagerMongo = new CarsManagerMongo();
+const carsManagerMongo = new CartsManagerMongo();
 
 export const getCar = async (req, res) => {
 
     try {
         const idCar = req.params.cid;
         console.log(idCar);
-        const result = await carsManagerMongo.showProducts(idCar);
-
-        res.status(200).send(result);
+        const cart = await carsManagerMongo.showProducts(idCar);
+        // res.send(cart);
+        res.status(200).render("cart.handlebars", {cart});
     } catch (error) {
         res.status(500).send(`Error de servidor ${error}`);
     }
@@ -21,8 +21,10 @@ export const getCar = async (req, res) => {
 
 export const createCart = async (req, res) => {
     try {
-        const newCar = new CarsMongo([]);
-        const resCreate = await carsManagerMongo.createCar(newCar);
+        const dateNow = moment();
+        const date = dateNow.format('YYYY-MM-DD');
+        const newCar = new CartsMongo([]);
+        const resCreate = await carsManagerMongo.createCar(date, newCar);
         
         res.status(200).send(resCreate);
     } catch (error) {
@@ -47,15 +49,31 @@ export const addProduct = async (req, res) => {
         const idCars = req.params.cid;
         const idProduct = req.params.pid;
         const getProduct = await productManagerMongo.getProductsById(idProduct);
-        const product = new ProductOfCarMongo(
-            getProduct.id,
-            quantity
-        );
-
-        const result = await carsManagerMongo.addToCar(idCars, product);
+    
+        const result = await carsManagerMongo.addToCar(idCars, getProduct, quantity);
 
         res.status(200).send(result);
     } catch (error) {
         res.status(500).send(`Error de servidor ${error}`);
     }
+}
+
+export const deleteOneProduct = async (req, res) => {
+    try {
+        const idCart = req.params.cid;
+        const idProduct = req.params.pid;
+
+        const result = await carsManagerMongo.deleteOneProduct(idCart, idProduct);
+
+        res.status(200).send(result);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+}
+
+export const deleteAllProducts = async (req, res) => {
+    const idCart = req.params.cid;
+
+    const result = await carsManagerMongo.deleteAllProducts(idCart);
+    res.status(200).send(result);
 }

@@ -14,7 +14,9 @@
     "@handlebars/allow-prototype-access": "^1.0.5",
     "express": "^4.18.2",
     "express-handlebars": "^7.1.2",
+    "moment": "^2.30.1",
     "mongoose": "^8.1.1",
+    "mongoose-paginate-v2": "^1.8.0",
     "socket.io": "^4.7.4",
     "uuid4": "^2.0.3"
   },

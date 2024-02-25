@@ -9,7 +9,7 @@ import __dirname from './dirname.util.js';
 
 import './dao/db/db.js';
 import routesProducts from './routes/products.routes.js';
-import routesCars from './routes/cars.routes.js';
+import routesCarts from './routes/carts.routes.js';
 import routesViews from './routes/views.routes.js';
 import routesContact from './routes/contact.routes.js';
 import { sockets } from './sockets/sockets.js';
@@ -34,7 +34,7 @@ app.set("views", __dirname+"/views");
 app.set("view engine", "handlebars");
 
 app.use("/api", routesProducts);
-app.use("/api", routesCars);
+app.use("/api", routesCarts);
 app.use("/api", routesViews);
 app.use("/api", routesContact);
 

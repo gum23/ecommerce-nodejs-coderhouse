@@ -174,3 +174,254 @@ body{
 .buttonDelete:active{
     border: 1px solid black;
 }
+
+.filtersContainer {
+    border: 1px #fff solid;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.limitOptions {
+    display: flex;
+    flex-direction: row;
+    width: max-content;
+}
+
+.limitOptions p{
+    margin: 0;
+    display: flex;
+    align-items: center;
+    color: #fff;
+}
+
+.titleOption {
+    padding: 12px 10px 12px 20px;
+    font-size: 24px;
+}
+
+.optionContainer {
+    display: flex;
+    flex-direction: row;
+    margin-right: 28px;
+}
+
+.option {
+    display: flex;
+    flex-direction: row;
+}
+
+.option p{
+    margin-left: 20px;
+    margin-right: 4px;
+}
+
+.option button{
+    height: max-content;
+    margin-top: 20px;
+    margin-left: 12px;
+    background-color: #4777be;
+    color: #fff;
+}
+
+.priceOrder {
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+}
+
+.priceOrder p {
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    color: #fff;
+}
+
+.titleDirection {
+    display: flex;
+    justify-content: center;
+}
+
+.directionContainer {
+    margin-top: 12px;
+}
+
+.optionDirection button{
+    height: max-content;
+    margin-left: 12px;
+    background-color: #4777be;
+    color: #fff;
+}
+
+.directionContainer div{
+    display: flex;
+    
+}
+
+.querysOrder {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 24px;
+    width: max-content;
+}
+
+.querysOrder p{
+    display: flex;
+    align-items: center;
+    margin: 0;
+    color: #fff;
+    margin-right: 12px;
+}
+
+.queryTitle{
+    display: flex;
+    justify-content: center;
+}
+
+.queryOptions{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.pages p{
+    display: flex;
+    align-items: center;
+    margin: 0;
+    color: #fff;
+    margin-right: 12px;
+}
+
+.arrowsDirection{
+    display: flex;
+    flex-direction: row;
+}
+
+.arrowsDirection button{
+    height: max-content;
+    margin-left: 12px;
+    background-color: #4777be;
+    color: #fff;
+}
+
+.lineDeco {
+    background-color: #fff;
+    border: 2px #fff solid;
+    margin: 20px 0 60px 0;
+}
+
+.buttonAddContainer{
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.addCart{
+    visibility: hidden;
+}
+
+.cardAddCart:hover{
+    .addCart{
+        visibility: visible;
+    }
+}
+
+.titlePage{
+    width: max-content;
+    color: #fff;
+    margin: 0 auto;
+}
+
+.productContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #fff;
+    border-radius: 12px;
+    width: 90%;
+    margin: 0 auto;
+    padding: 32px;
+    margin-top: 24px;
+}
+
+.titleContainer{
+    display: flex;
+    align-items: center;
+}
+
+.bodyProduct{
+    display: flex;
+    flex-direction: row;
+}
+
+.imageContainer{
+    width: 150px;
+    height: 150px;
+    margin: 0 28px;
+}
+
+.imageContainer img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 16px;
+}
+
+.descriptionContainer{
+    margin-right: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.descriptionContain{
+    margin-top: 28px;
+    width: 150px;
+}
+
+.quantityContainer{
+    margin-right: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.quantityContain{
+    margin-top: 28px;
+    text-align: center;
+}
+
+.priceContainer{
+    margin-right: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.priceContainerNumber{
+    display: flex;
+    flex-direction: row;
+    margin-top: 28px;
+}
+
+.subTotalContainer{
+    margin-right: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.subTotal{
+    display: flex;
+    flex-direction: row;
+    margin-top: 28px;
+}
+
+.button{
+    margin-top: 40px;
+    margin-left: 40px;
+}
+
+.clearCartContainer{
+    margin: 24px 0;
+    display: flex;
+    justify-content: end;
+    width: 90%;
+}

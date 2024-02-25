@@ -20,18 +20,35 @@ class ProductManagerMongo {
     return productFound;
   }
 
-  async getProducts(limit) {
-    if (limit) {
-      const l = parseInt(limit);
-      const productFound = await productsModel.find().limit(l);
-      if (!productFound) return "no existe ningun producto";
+  async getProducts(limit, sort, query, page) {
 
-      return productFound;
+    const orderPrice = sort === -1 ? 'desc' : 'asc';
+    const querySearch = query ? {category: query} : {};
+
+    const op = {
+      page: page,
+      limit: limit,
+      sort: {price: orderPrice}
     }
-    const productFound = await productsModel.find();
+    const productFound = await productsModel.paginate({...querySearch}, op);
     if (!productFound) return "no existe ningun producto";
 
-    return productFound;
+    if(productFound.hasPrevPage = true) productFound.prevLink = `http://localhost:8080/api/products?page=${productFound.prevPage}`;
+    if(productFound.hasNextPage = true) productFound.nextLink = `http://localhost:8080/api/products?page=${productFound.nextPage}`;
+    
+    const responseProducts = {
+      payload: productFound.docs,
+      totalPages: productFound.totalPages,
+      prevPage: productFound.prevPage,
+      nextPage: productFound.nextPage,
+      page: productFound.page,
+      hasPrevPage: productFound.hasPrevPage,
+      hasNextPage: productFound.hasNextPage,
+      prevLink: productFound.prevLink || null,
+      nextLink: productFound.nextLink || null
+    }
+
+    return responseProducts;
   }
 
   async getProductsById(id) {

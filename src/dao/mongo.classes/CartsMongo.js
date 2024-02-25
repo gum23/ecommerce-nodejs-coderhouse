@@ -1,5 +1,5 @@
 
-export default class CarsMongo {
+export default class CartsMongo {
 
     constructor(products) {
         this.products = products

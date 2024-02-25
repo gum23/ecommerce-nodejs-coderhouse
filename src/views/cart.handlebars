@@ -1,0 +1,40 @@
+<div class="container mt-4">
+    <h1 class="titlePage">Carrito</h1>
+    <hr class="lineDeco">
+    {{#each cart.products}}
+        <div class="productContainer">
+            <div class="titleContainer">
+                <h2 class="titleProduct">{{this.product.title}}</h2>
+            </div>
+            <div class="bodyProduct">
+                <div class="imageContainer">
+                    <img src={{this.product.thumbnails}} alt={{this.product.title}} />
+                </div>
+                <div class="descriptionContainer">
+                    <p class="descriptionTitle">Description</p>
+                    <p class="descriptionContain">{{this.product.description}}</p>
+                </div>
+                <div class="quantityContainer">
+                    <p class="quanriryTitle">Cantidad</p>
+                    <p class="quantityContain" id="quantity">{{this.quantity}}</p>
+                </div>
+                <div class="priceContainer">
+                    <p class="priceTitle">Precio</p>
+                    <div class="priceContainerNumber">
+                        <p class="priceSimbol">$</p>
+                        <p class="priceContain" id="price">{{this.product.price}}</p>
+                    </div>
+                </div>
+                
+                <div class="deleteProduct">
+                    <button class="btn btn-danger button" onclick="deleteProduct('{{this.product._id}}')">Delete</button>
+                </div>
+            </div>
+        </div>
+    {{/each}}
+    <div class="clearCartContainer">
+        <button class="btn btn-danger">Vaciar carrito</button>
+    </div>
+</div>
+
+<script src="/cart.js"></script>

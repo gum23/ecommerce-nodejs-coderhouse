@@ -5,10 +5,15 @@ const ProductManager = new productManager();
 
 export const getProducts = async (req, res) => {
   try {
-    const limit = req.query.limit;
-    const products = await ProductManager.getProducts(limit);
+    const limit = parseInt(req.query.limit, 10) || 10;
+    const sort = parseInt(req.query.sort) || 0;
+    const query = req.query.query;
+    const page = parseInt(req.query.page) || 1;
 
-    res.status(200).send(products);
+    const products = await ProductManager.getProducts(limit, sort, query, page);
+
+    // res.status(200).send(products);
+    res.status(200).render("products.handlebars", {products});
   } catch (error) {
     res.status(500).send(`Error de servidor: ${error}`);
   }
