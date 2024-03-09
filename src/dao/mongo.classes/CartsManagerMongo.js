@@ -9,29 +9,49 @@ class CarsManagerMongo {
     return "Nuevo carro creado";
   }
 
-  async addToCar(idCar, product, quantity) {
-    const existCart = await cartsModel.findOne({ _id: idCar });
+  async addToCar(idCart, product, quantity) {
+    const existCart = await cartsModel.findOne({ _id: idCart });
     if (!existCart) return "El carrito solicitado no existe";
 
     
     const existProduct = await cartsModel.findOne({
-      _id: idCar,
+      _id: idCart,
       "products.product": product._id
     });
 
     if (existProduct) {
       await cartsModel.updateOne(
-        {_id: idCar, "products.product": product._id},
+        {_id: idCart, "products.product": product._id},
         { $inc: { "products.$.quantity": quantity } }
       );
       return `Se actualizó la cantidad en el producto con ID: ${product.id}`;
     } else {
-      await cartsModel.findByIdAndUpdate(idCar, {
+      await cartsModel.findByIdAndUpdate(idCart, {
         $push: {
           products: { $each: [{ product: product, quantity: quantity }] },
         },
       });
       return `El producto ID: ${product.id} / Fue agregado con quantity: ${quantity}`;
+    }
+  }
+
+  async newQuantity(quantity, idCart, product) {
+    const cart = await cartsModel.findOne({_id: idCart});
+    
+    const existProduct = await cartsModel.findOne({
+      _id: idCart,
+      "products.product": product._id
+    });
+    
+    if (existProduct) {
+      await cartsModel.updateOne(
+        {_id: idCart, "products.product": product._id},
+        { $inc: { "products.$.quantity": quantity } }
+      );
+      return `Se actualizó la cantidad en el producto con ID: ${product.id}`;
+    } else {
+      
+      return `El producto ID: ${product.id} / No existe en su carrito`;
     }
   }
 

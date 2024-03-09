@@ -314,7 +314,26 @@ body{
 .buttonAddContainer{
     display: flex;
     justify-content: center;
+    flex-direction: column;
     margin-top: 8px;
+}
+
+.quantityAdd{
+    display: flex;
+    justify-content: center;
+}
+
+.quantityAdd p{
+    visibility: hidden;
+    width: max-content;
+    margin-right: 12px;
+}
+
+.inputQuantity{
+    visibility: hidden;
+    height: 24px;
+    width: 36px;
+    text-align: center;
 }
 
 .addCart{
@@ -325,6 +344,22 @@ body{
     .addCart{
         visibility: visible;
     }
+    .inputQuantity{
+        visibility: visible;
+    }
+    .quantityAdd p{
+        visibility: visible;
+    }
+}
+
+.cartsHead{
+    display: flex;
+    justify-content: end;
+}
+
+.cartsHead a{
+    text-decoration: none;
+    width: max-content;
 }
 
 .titlePage{

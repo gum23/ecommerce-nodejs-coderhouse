@@ -85,11 +85,11 @@ queryPercusion.addEventListener("click", () => {
     handleFilter(queryPercusion.value);
 });
 
-const handleDispo = () => {
-    urlSearchParams.set("disponible", queryDisponible);
+const handleDispo = (stockValue) => {
+    urlSearchParams.set("disponible", stockValue);
     window.location.href = `${location.pathname}?${urlSearchParams}`;
 
-    if (currentQuery == queryDisponible) {
+    if (currentDisponible == stockValue) {
         urlSearchParams.delete("disponible");
         window.location.href = `${location.pathname}?${urlSearchParams}`;
     }

@@ -20,7 +20,7 @@ class ProductManagerMongo {
     return productFound;
   }
 
-  async getProducts(limit, sort, query, page) {
+  async getProducts(limit, sort, query, page, disponible) {
 
     const orderPrice = sort === -1 ? 'desc' : 'asc';
     const querySearch = query ? {category: query} : {};

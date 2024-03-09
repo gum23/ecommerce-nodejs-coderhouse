@@ -82,9 +82,15 @@
                                     <img src="{{this.thumbnails}}" alt="{{this.title}}" class="img-fluid mt-2 image"/>
                                 </div> 
                             </li>
-                            <li class="buttonAddContainer">
-                                <button class="btn btn-dark addCart" onclick="">Agregar al carrito</button>
-                            </li>
+                            <form action="/api/carts/65db7e6be4645424b0f0289a/product/{{this._id}}" method="post">
+                                <li class="buttonAddContainer">
+                                    <div class="quantityAdd">
+                                        <p>Cantidad</p>
+                                        <input type="text" name="quantity" class="inputQuantity"/>
+                                    </div>
+                                    <button type="submit" class="btn btn-dark addCart" >Agregar al carrito</button>
+                                </li>
+                            </form>
                         </ul>
                     </div>
                     <div class="card-footer">
