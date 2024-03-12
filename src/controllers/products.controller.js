@@ -12,9 +12,11 @@ export const getProducts = async (req, res) => {
     const disponible = req.params.disponible;
 
     const products = await ProductManager.getProducts(limit, sort, query, page, disponible);
+    const user = req.session.userData;
 
-    // res.status(200).send(products);
-    res.status(200).render("products.handlebars", {products});
+    delete req.session.userData;
+
+    res.status(200).render("products.handlebars", {products, user});
   } catch (error) {
     res.status(500).send(`Error de servidor: ${error}`);
   }
@@ -79,3 +81,12 @@ export const deleteProduct = async (req, res) => {
     res.status(500).send(`Error de servidor: ${error}`);  
   }
 };
+
+export function auth(req, res, next) {
+  const user = req.session.userData;
+  
+  if (user == undefined) {
+    return res.redirect("/api/login");
+  }
+  return next();
+}

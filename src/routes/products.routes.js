@@ -3,7 +3,7 @@ const router = Router();
 
 import * as productsCtrl from '../controllers/products.controller.js'
 
-router.get("/products/", productsCtrl.getProducts);
+router.get("/products/", productsCtrl.auth, productsCtrl.getProducts);
 
 router.get("/products/:pid", productsCtrl.getProduct);
 
