@@ -9,6 +9,8 @@ import __dirname from './dirname.util.js';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import mongoStore from 'connect-mongo';
+import {initializePassport} from './passport/passport.js';
+import passport from 'passport';
 
 import './dao/db/db.js';
 import routesProducts from './routes/products.routes.js';
@@ -17,6 +19,7 @@ import routesViews from './routes/views.routes.js';
 import routesContact from './routes/contact.routes.js';
 import routesAuth from './routes/auth.routes.js';
 import routesLogin from './routes/login.routes.js';
+import routesGithub from './routes/github.routes.js';
 
 import { sockets } from './sockets/sockets.js';
 
@@ -30,6 +33,9 @@ const socketServer = new Server(server);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(morgan("dev"));
+
+initializePassport();
+app.use(passport.initialize());
 
 app.use(cookieParser());
 app.use(session({
@@ -50,12 +56,13 @@ app.engine("handlebars", exphbs.engine({
 app.set("views", __dirname+"/views");
 app.set("view engine", "handlebars");
 
+app.use("/api", routesLogin);
 app.use("/api", routesProducts);
 app.use("/api", routesCarts);
 app.use("/api", routesViews);
 app.use("/api", routesContact);
 app.use("/api", routesAuth);
-app.use("/api", routesLogin);
+app.use("/api", routesGithub);
 
 server.listen(PORT, () => {
     console.log(`Server listening on port: ${PORT}`);

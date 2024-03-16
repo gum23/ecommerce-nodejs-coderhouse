@@ -497,6 +497,16 @@ body{
 
 .loginButton{
     margin-left: 28px;
+    margin-top: 12px;
+}
+
+.githubContainer{
+    width: max-content;
+    margin: 12px auto;
+}
+
+.iconGithub{
+    margin-right: 18px;
 }
 
 .saludoContainer{ 

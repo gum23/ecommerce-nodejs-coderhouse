@@ -14,7 +14,8 @@ const userSchema = new Schema({
     email: {
         type: String,
         require: true,
-        trim: true
+        trim: true,
+        unique: true
     },
     age: {
         type: Number,
@@ -32,7 +33,8 @@ const userSchema = new Schema({
     }
 },{
     versionKey: false,
-    timestamps: true
+    timestamps: true,
+    strict: false
 });
 
 
