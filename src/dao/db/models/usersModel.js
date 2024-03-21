@@ -27,6 +27,13 @@ const userSchema = new Schema({
         require: true,
         trim: true
     },
+    cart: {
+        type: [
+            {
+                
+            }
+        ]
+    },
     rol: {
         type: String,
         default: "usuario"

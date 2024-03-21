@@ -19,6 +19,7 @@ import routesViews from './routes/views.routes.js';
 import routesContact from './routes/contact.routes.js';
 import routesAuth from './routes/auth.routes.js';
 import routesLogin from './routes/login.routes.js';
+import routesInit from './routes/pathInit.routes.js';
 import routesGithub from './routes/github.routes.js';
 
 import { sockets } from './sockets/sockets.js';
@@ -56,6 +57,7 @@ app.engine("handlebars", exphbs.engine({
 app.set("views", __dirname+"/views");
 app.set("view engine", "handlebars");
 
+app.use("/", routesInit);
 app.use("/api", routesLogin);
 app.use("/api", routesProducts);
 app.use("/api", routesCarts);
