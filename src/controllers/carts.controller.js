@@ -1,7 +1,7 @@
 import ProductManagerMongo from "../dao/mongo.classes/ProductManagerMongo.js";
-import CartsMongo from '../dao/mongo.classes/CartsMongo.js';
+// import CartsMongo from '../dao/mongo.classes/CartsMongo.js';
 import CartsManagerMongo from '../dao/mongo.classes/CartsManagerMongo.js';
-import moment from 'moment'; 
+// import moment from 'moment'; 
 
 const productManagerMongo = new ProductManagerMongo();
 const carsManagerMongo = new CartsManagerMongo();
@@ -10,7 +10,6 @@ export const getCar = async (req, res) => {
 
     try {
         const idCar = req.params.cid;
-        console.log(idCar);
         const cart = await carsManagerMongo.showProducts(idCar);
         
         res.status(200).render("cart.handlebars", {cart});
@@ -19,18 +18,18 @@ export const getCar = async (req, res) => {
     }
 }
 
-export const createCart = async (req, res) => {
-    try {
-        const dateNow = moment();
-        const date = dateNow.format('YYYY-MM-DD');
-        const newCar = new CartsMongo([]);
-        const resCreate = await carsManagerMongo.createCar(date, newCar);
+// export const createCart = async (req, res) => {
+//     try {
+//         const dateNow = moment();
+//         const date = dateNow.format('YYYY-MM-DD');
+//         const newCar = new CartsMongo([]);
+//         const resCreate = await carsManagerMongo.createCar(date, newCar);
         
-        res.status(200).send(resCreate);
-    } catch (error) {
-        res.status(500).send(`Error de servidor ${error}`);
-    }
-}
+//         res.status(200).send(resCreate);
+//     } catch (error) {
+//         res.status(500).send(`Error de servidor ${error}`);
+//     }
+// }
 
 export const addProduct = async (req, res) => {
 
@@ -49,9 +48,9 @@ export const addProduct = async (req, res) => {
         const idProduct = req.params.pid;
         const getProduct = await productManagerMongo.getProductsById(idProduct);
     
-        const result = await carsManagerMongo.addToCar(idCart, getProduct, quantity);
+        await carsManagerMongo.addToCar(idCart, getProduct, quantity);
 
-        res.redirect("/api/carts/65db7e6be4645424b0f0289a");
+        res.redirect(`/api/carts/${idCart}`);
     } catch (error) {
         res.status(500).send(`Error de servidor ${error}`);
     }

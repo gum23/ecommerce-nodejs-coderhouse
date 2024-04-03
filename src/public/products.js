@@ -116,3 +116,4 @@ prevPage.addEventListener("click", () => {
 nextPage.addEventListener("click", () => {
     handlePages(nextPage.value);
 });
+

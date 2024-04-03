@@ -42,6 +42,9 @@ const productSchema = new Schema({
         type: Object,
         require: true,
         trim: true
+    },
+    cart: {
+        type: String
     }
 },{
     versionKey: false,

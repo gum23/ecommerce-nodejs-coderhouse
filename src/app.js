@@ -23,6 +23,7 @@ import routesInit from './routes/pathInit.routes.js';
 import routesGithub from './routes/github.routes.js';
 
 import { sockets } from './sockets/sockets.js';
+import { register } from 'module';
 
 
 const PORT = 8080;

@@ -1,4 +1,4 @@
-import { model, Schema } from 'mongoose';
+import mongoose, { model, Schema } from 'mongoose';
 
 const userSchema = new Schema({
     firstName: {
@@ -28,11 +28,8 @@ const userSchema = new Schema({
         trim: true
     },
     cart: {
-        type: [
-            {
-                
-            }
-        ]
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "carts"
     },
     rol: {
         type: String,

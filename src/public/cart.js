@@ -1,6 +1,9 @@
 
+const cartId = window.location.pathname.split('/').pop();
+
 const deleteProduct = async (idProduct) => {
-    const endPoint = `/api/carts/65db7e6be4645424b0f0289a/product/${idProduct}`;
+    
+    const endPoint = `/api/carts/${cartId}/product/${idProduct}`;
     
     try {
         await fetch(endPoint, {
@@ -18,7 +21,8 @@ const deleteProduct = async (idProduct) => {
 }
 
 const cartEmpty = async () => {
-    const endPoint = `/api/carts/65db7e6be4645424b0f0289a`;
+    
+    const endPoint = `/api/carts/${cartId}`;
 
     try {
         await fetch(endPoint, {

@@ -5,8 +5,7 @@ class CarsManagerMongo {
   async createCar(date, car) {
     const newCar = new cartsModel({date: date}, car);
     await newCar.save();
-
-    return "Nuevo carro creado";
+    return newCar;
   }
 
   async addToCar(idCart, product, quantity) {

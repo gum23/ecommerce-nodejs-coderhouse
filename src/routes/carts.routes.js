@@ -5,7 +5,7 @@ import * as cartsCtrl from '../controllers/carts.controller.js';
 
 router.get("/carts/:cid", cartsCtrl.getCar);
 
-router.post("/carts", cartsCtrl.createCart);
+// router.post("/carts", cartsCtrl.createCart);
 
 router.post("/carts/:cid/product/:pid", cartsCtrl.addProduct);
 

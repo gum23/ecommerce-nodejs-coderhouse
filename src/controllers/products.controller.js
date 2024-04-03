@@ -11,8 +11,13 @@ export const getProducts = async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const disponible = req.params.disponible;
 
-    const products = await ProductManager.getProducts(limit, sort, query, page, disponible);
+    let products = await ProductManager.getProducts(limit, sort, query, page, disponible);
     const user = req.session.userData;
+    const cart = req.session.userData.cart;
+    
+    products.payload.forEach(e => {
+      e.cart = cart;
+    });
 
     delete req.session.userData;
 

@@ -511,12 +511,12 @@ body{
 
 .saludoContainer{ 
     display: flex;
-    justify-content: end;
+    justify-content: center;
 }
 
 .saludoUsuario{
     width: max-content;
     color: #fff;
     font-size: 28px;
-    margin-right: 40px;
+    margin: 0 80px;
 }

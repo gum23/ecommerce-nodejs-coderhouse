@@ -1,9 +1,10 @@
 <div class="container mt-5">
     <div class="saludoContainer">
+        <a href="/api/carts/{{user.cart}}"><button class="btn btn-dark">Carrito</button></a>
         <p class="saludoUsuario">¡Buena Navegación {{user.rol}} {{user.firstName}}!</p>
         <a href="/api/logout"><button class="btn btn-danger">Salir</button></a>
     </div>
-    <h1 class="allProducts">Products Filters</h1>
+    <h1 class="allProducts">Products Filters</h1> 
     <div class="filtersContainer">
 
         <div class="limitOptions">
@@ -86,7 +87,7 @@
                                     <img src="{{this.thumbnails}}" alt="{{this.title}}" class="img-fluid mt-2 image"/>
                                 </div> 
                             </li>
-                            <form action="/api/carts/65db7e6be4645424b0f0289a/product/{{this._id}}" method="post">
+                            <form action="/api/carts/{{this.cart}}/product/{{this._id}}" method="post" >
                                 <li class="buttonAddContainer">
                                     <div class="quantityAdd">
                                         <p>Cantidad</p>

@@ -3,7 +3,12 @@ import LocalStrategy from 'passport-local';
 import github from 'passport-github2';
 import usersModel from '../dao/db/models/usersModel.js';
 import userManager from '../dao/mongo.classes/userManager.js';
+import CartsManagerMongo from '../dao/mongo.classes/CartsManagerMongo.js';
+import CartsMongo from '../dao/mongo.classes/CartsMongo.js';
+import moment from 'moment';
 import { createHash, compareHashAndPass } from '../utils/bcrypt.util.js';
+
+const cartsManagerMongo = new CartsManagerMongo();
 
 export const initializePassport = () => {
     passport.use('register', new LocalStrategy.Strategy(
@@ -17,15 +22,24 @@ export const initializePassport = () => {
                     done('Error, el usuario ya existe');
                 }
                 let passwordCrypt = await createHash(password);
+                
+                const dateNow = moment();
+                const date = dateNow.format('YYYY-MM-DD');
+                const newCar = new CartsMongo([]);
+                const resCreateCart = await cartsManagerMongo.createCar(date, newCar);
+
+                const idCart = resCreateCart._id;
+
                 const newUser = new userManager(
                     userData.firstName,
                     userData.lastName,
                     userData.email,
                     userData.age,
-                    rol,
-                    passwordCrypt
+                    passwordCrypt,
+                    idCart,
+                    rol
                 );
-                    console.log("Nuevo usuario", newUser);
+                    
                 const result = await usersModel.create(newUser);
                 done(null, result)
             } catch (error) {
