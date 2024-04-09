@@ -9,8 +9,9 @@ import __dirname from './dirname.util.js';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import mongoStore from 'connect-mongo';
-import {initializePassport} from './passport/passport.js';
+import {initializePassport} from './config/passport.js';
 import passport from 'passport';
+import { PORT } from './config.js';
 
 import './dao/db/db.js';
 import routesProducts from './routes/products.routes.js';
@@ -25,8 +26,6 @@ import routesGithub from './routes/github.routes.js';
 import { sockets } from './sockets/sockets.js';
 import { register } from 'module';
 
-
-const PORT = 8080;
 
 const app = express();
 const server = createServer(app);

@@ -19,6 +19,7 @@ export const getProducts = async (req, res) => {
       e.cart = cart;
     });
 
+    req.session.user = user;
     delete req.session.userData;
 
     res.status(200).render("products.handlebars", {products, user});
