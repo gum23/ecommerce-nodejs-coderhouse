@@ -24,8 +24,10 @@ export const mail = async (req, res) => {
         </div>
         `
     });
+    
+    req.session.userData = user;
 
-    res.redirect(`/api/carts/${user.cart}`)
+    res.redirect(`/api/products`)
 }
 
 
