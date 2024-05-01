@@ -22,9 +22,9 @@ import routesAuth from './routes/auth.routes.js';
 import routesLogin from './routes/login.routes.js';
 import routesInit from './routes/pathInit.routes.js';
 import routesGithub from './routes/github.routes.js';
+import routesMailer from './routes/mailer.routes.js';
 
 import { sockets } from './sockets/sockets.js';
-import { register } from 'module';
 
 
 const app = express();
@@ -52,10 +52,17 @@ app.use(session({
 app.use(express.static(__dirname+"/public"));
 
 app.engine("handlebars", exphbs.engine({
-    handlebars: allowInsecurePrototypeAccess(handlebars)
+    handlebars: allowInsecurePrototypeAccess(handlebars),
+    helpers: {
+                subTotal: function(quantity, price){
+                    return quantity * price;
+                }
+            }
 }));
+
 app.set("views", __dirname+"/views");
 app.set("view engine", "handlebars");
+
 
 app.use("/", routesInit);
 app.use("/api", routesLogin);
@@ -65,6 +72,7 @@ app.use("/api", routesViews);
 app.use("/api", routesContact);
 app.use("/api", routesAuth);
 app.use("/api", routesGithub);
+app.use("/api", routesMailer);
 
 server.listen(PORT, () => {
     console.log(`Server listening on port: ${PORT}`);

@@ -37,3 +37,7 @@ const cartEmpty = async () => {
         console.log(error);
     }
 }
+
+const purchase = () => {
+    return window.location.href = `/api/${cartId}/purchase`;
+}

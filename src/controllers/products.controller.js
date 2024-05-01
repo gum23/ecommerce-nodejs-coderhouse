@@ -12,6 +12,7 @@ export const getProducts = async (req, res) => {
     const disponible = req.params.disponible;
 
     let products = await ProductManager.getProducts(limit, sort, query, page, disponible);
+    
     const user = req.session.userData;
     const cart = req.session.userData.cart;
     
@@ -20,6 +21,7 @@ export const getProducts = async (req, res) => {
     });
 
     req.session.user = user;
+    
     delete req.session.userData;
 
     res.status(200).render("products.handlebars", {products, user});

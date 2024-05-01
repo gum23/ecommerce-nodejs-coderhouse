@@ -9,9 +9,13 @@ const chatManagerMongo = new ChatManagerMongo();
 export const sockets = (socketServer) => {
   socketServer.on("connection", async (socket) => {
 
-    const productList = await productManager.getProducts();
-    
-    socketServer.emit("products", productList);
+    const limit = 100;
+    const sort = 0;
+    const page =  1;
+
+    const productList = await productManager.getProducts(limit, sort, "", page, "");
+    const allProducts = productList.payload;
+    socketServer.emit("products", allProducts);
 
     socket.on("addProduct", async (newProduct) => {
 

@@ -1,0 +1,47 @@
+<div style="color: white; width: max-content; margin: 48px auto;">
+    <h1>Finalizando la compra</h1>
+</div>
+<div style="width: 60%; margin: 48px auto;">
+    <div style="color: white; border: 1px solid white; width: 60%; margin: 0 auto; border-radius: 8px;">
+        <table style="margin: 24px auto 0;">
+            <thead>
+                <tr style="width: max-content;">
+                    <th style="padding: 0 12px;">Producto</th>
+                    <th style="padding: 0 12px;">Cantidad</th>
+                    <th style="padding: 0 12px;">Precio Unitario</th>
+                    <th style="padding: 0 12px;">Sub total</th>
+                </tr>
+            </thead>
+            {{#each productsPurchase}}
+                <tbody>
+                    <td style="padding: 0 12px;">{{this.product.title}}</td>
+                    <td style="padding: 0 12px;">{{this.quantity}}</td>
+                    <td style="padding: 0 12px;">{{this.product.price}}</td>
+                    <td style="padding: 0 12px;" id="subTotal" >{{subTotal this.quantity this.product.price}}</td>
+                </tbody>
+            {{/each}}
+        </table>
+        <div style="display: flex; justify-content: end;">
+            <p style="width: 30%; margin-top: 48px;">Total de la compra</p><p style="width: max-content; margin-top: 48px; margin-right: 30px;" id="total"></p>  
+        </div>
+        <div style=" display: flex; justify-content: end; margin: 16px 16px;">
+            <a onclick="toCart()"><button class="btn btn-success">Terminar compra</button></a>
+        </div>
+    </div>
+    <div style="margin-top: 40px; color: beige; display: flex; flex-direction: column; align-items: center;">
+        <div style="display: flex; justify-content: center;">
+            <h5>Productos sin stock suficiente</h5>
+        </div>
+        <div style="display: flex; border: 1px solid white; border-radius: 4px; width: max-content; margin: 24px auto; padding: 12px;">
+            {{#each productsNotPurchase}}
+                <p style="width: max-content; margin-right: 24px;">Producto: </p>
+                <p style="width: max-content;">{{this.product.title}}</p>
+            {{/each}}
+        </div>
+        <div>
+            <p style="width: 400px; text-align: center;">Los productos sin stock suficiente para realizar la compra, serán devueltos al carrito.</p>
+        </div>
+    </div>
+</div>
+
+<script src="/purchase.js"></script>

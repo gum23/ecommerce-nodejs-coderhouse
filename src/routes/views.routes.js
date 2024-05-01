@@ -18,7 +18,9 @@ router.get("/home", async (req, res) => {
 });
 
 router.get("/realtimeproducts", (req, res) => {
-  res.render("realTimeProducts");
+  const admin = req.session.userData;
+  
+  res.render("realTimeProducts", {admin});
 });
 
 export default router;

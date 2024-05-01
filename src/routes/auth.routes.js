@@ -14,22 +14,32 @@ router.get("/failedRegister", (req, res) => {
 
 router.post("/login", (req, res, next) => {
     passport.authenticate('login', (err, user, info) => {
+        
         if (err) {
             return res.status(500).redirect("/api/failedLogin");
         }
         if (!user) {
-            return res.status(401).send(info);
+            return res.status(401).redirect("/api/login");
         }
         req.logIn(user, (err) => {
             if (err) {
                 return res.status(500).redirect("/api/login");
             }
             
+            
             const userData = {
                 firstName: user.firstName || "",
                 rol: user.rol,
-                cart: user.cart._id
+                email: user.email || ""
             }
+
+            if(userData.rol == "Admin"){
+                req.session.userData = userData;
+                res.status(200).redirect("/api/realtimeproducts")
+                return
+            }
+            if(userData.rol == "usuario"){userData.cart = user.cart._id}
+            
             req.session.userData = userData;
 
             res.status(200).redirect("/api/products");

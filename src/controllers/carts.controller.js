@@ -1,7 +1,9 @@
 import ProductManagerMongo from "../dao/mongo.classes/ProductManagerMongo.js";
 // import CartsMongo from '../dao/mongo.classes/CartsMongo.js';
 import CartsManagerMongo from '../dao/mongo.classes/CartsManagerMongo.js';
-// import moment from 'moment'; 
+import moment from 'moment';
+import ticketModel from '../dao/db/models/TicketModel.js';
+import uuid4 from 'uuid4';
 
 const productManagerMongo = new ProductManagerMongo();
 const carsManagerMongo = new CartsManagerMongo();
@@ -12,6 +14,7 @@ export const getCar = async (req, res) => {
         const idCar = req.params.cid;
         const cart = await carsManagerMongo.showProducts(idCar);
         
+        req.session.cartPurchase = cart;
         res.status(200).render("cart.handlebars", {cart});
     } catch (error) {
         res.status(500).send(`Error de servidor ${error}`);
@@ -91,4 +94,45 @@ export const deleteAllProducts = async (req, res) => {
     console.log(idCart);
     await carsManagerMongo.deleteAllProducts(idCart);
     res.status(200).render("cart.handlebars");
+}
+
+export const purchase = async (req, res) => {
+    const cart = req.session.cartPurchase;
+    const products = cart.products;
+    const user = req.session.user;
+    
+    let productsPurchase = [];
+    let productsNotPurchase = [];
+    let amount = 0;
+
+    for(const e of products) {
+        
+        const idProduct = e.product._id;
+        const product = await productManagerMongo.getProductsById(idProduct);
+        
+        if (product.stock >= e.quantity) {
+            amount += e.product.price;
+            productsPurchase.push(e);
+            await carsManagerMongo.deleteOneProduct(user.cart, idProduct);
+            await productManagerMongo.updateProduct(product._id, {$inc:{stock: - e.quantity}});
+        } else {
+            productsNotPurchase.push(e);
+        }
+    };
+
+    const code = uuid4();
+    const currentDate = moment();
+    const formatCurrentDate = currentDate.format('YYYY-MM-DD HH:mm:ss');
+
+    const purchase = {
+        code: code,
+        purchase_datatime: formatCurrentDate,
+        amount: amount,
+        purchaser: user.email
+    };
+
+    const newPurchase = new ticketModel(purchase);
+    await newPurchase.save();
+
+    res.status(200).render("purchase.handlebars", {productsPurchase, productsNotPurchase});
 }
