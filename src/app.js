@@ -11,6 +11,7 @@ import session from 'express-session';
 import mongoStore from 'connect-mongo';
 import {initializePassport} from './config/passport.js';
 import passport from 'passport';
+import compression from 'express-compression';
 import { PORT } from './config.js';
 
 import './dao/db/db.js';
@@ -23,6 +24,7 @@ import routesLogin from './routes/login.routes.js';
 import routesInit from './routes/pathInit.routes.js';
 import routesGithub from './routes/github.routes.js';
 import routesMailer from './routes/mailer.routes.js';
+import routesMocking from './routes/mocking.routes.js';
 
 import { sockets } from './sockets/sockets.js';
 
@@ -34,6 +36,7 @@ const socketServer = new Server(server);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 app.use(morgan("dev"));
+app.use(compression());
 
 initializePassport();
 app.use(passport.initialize());
@@ -73,6 +76,7 @@ app.use("/api", routesContact);
 app.use("/api", routesAuth);
 app.use("/api", routesGithub);
 app.use("/api", routesMailer);
+app.use("/api", routesMocking);
 
 server.listen(PORT, () => {
     console.log(`Server listening on port: ${PORT}`);

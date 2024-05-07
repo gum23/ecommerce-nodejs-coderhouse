@@ -1,5 +1,8 @@
 import Product from "../dao/mongo.classes/ProductsMongo.js";
 import productManager from "../dao/mongo.classes/ProductManagerMongo.js";
+import CustomError from "../services/errors/CustomError.js";
+import { generateProductsErrorInfo } from "../services/errors/info.js";
+import EErrors from "../services/errors/enums.js";
 
 const ProductManager = new productManager();
 
@@ -43,22 +46,32 @@ export const getProduct = async (req, res) => {
 
 export const createProduct = async (req, res) => {
   try {
-    const dataBody = req.body;
+    const {title, description, code, price, status, stock, category, thumbnails} = req.body;
+
+    if (!title || !description || !code || !price || !status || !stock || !category) {
+      CustomError.createError({
+        name: "Product creation error",
+        cause: generateProductsErrorInfo({title, description, code, price, status, stock, category}),
+        message: "Error tratando de crear producto",
+        code: EErrors.INVALID_TYPES_ERROR
+      })
+    }
 
     const newProduct = new Product(
-      dataBody.title,
-      dataBody.description,
-      dataBody.code,
-      dataBody.price,
-      dataBody.status,
-      dataBody.stock,
-      dataBody.category,
-      dataBody.thumbnails
+      title,
+      description,
+      code,
+      price,
+      status,
+      stock,
+      category,
+      thumbnails
     );
 
     const resClass = await ProductManager.addProduct(newProduct);
     res.status(200).send(resClass);
   } catch (error) {
+    console.error(error.cause);
     res.status(500).send(`Error de servidor: ${error}`);
   }
 };

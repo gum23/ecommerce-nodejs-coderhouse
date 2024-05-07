@@ -4,6 +4,9 @@ import CartsManagerMongo from '../dao/mongo.classes/CartsManagerMongo.js';
 import moment from 'moment';
 import ticketModel from '../dao/db/models/TicketModel.js';
 import uuid4 from 'uuid4';
+import CustomError from "../services/errors/CustomError.js";
+import { generateCartErrorInfo } from "../services/errors/info.js";
+import EErrors from "../services/errors/enums.js";
 
 const productManagerMongo = new ProductManagerMongo();
 const carsManagerMongo = new CartsManagerMongo();
@@ -21,28 +24,16 @@ export const getCar = async (req, res) => {
     }
 }
 
-// export const createCart = async (req, res) => {
-//     try {
-//         const dateNow = moment();
-//         const date = dateNow.format('YYYY-MM-DD');
-//         const newCar = new CartsMongo([]);
-//         const resCreate = await carsManagerMongo.createCar(date, newCar);
-        
-//         res.status(200).send(resCreate);
-//     } catch (error) {
-//         res.status(500).send(`Error de servidor ${error}`);
-//     }
-// }
-
 export const addProduct = async (req, res) => {
 
     const quantity = req.body.quantity;
 
-    if(quantity == null) {
-        return res.status(400).send({
-            messageOne: "Debe de ingresar la cantidad",
-            messageTwo: "En body seleccione JSON",
-            messageThree: "Escriba un json con clave=quantity y valor numérico que desee"
+    if(quantity == null || quantity == "") {
+        CustomError.createError({
+            name: "Add product to cart error",
+            cause: generateCartErrorInfo({quantity}),
+            message: "No ingreso cantidad",
+            code: EErrors.PROPERTY_EMPTY
         });
     }
     
@@ -55,6 +46,7 @@ export const addProduct = async (req, res) => {
 
         res.redirect(`/api/carts/${idCart}`);
     } catch (error) {
+        console.error(error.cause);
         res.status(500).send(`Error de servidor ${error}`);
     }
 }
@@ -109,6 +101,11 @@ export const purchase = async (req, res) => {
         
         const idProduct = e.product._id;
         const product = await productManagerMongo.getProductsById(idProduct);
+
+        if (e.quantity == 0) {
+            req.session.userData = user;
+            return res.redirect("/api/products");
+        }
         
         if (product.stock >= e.quantity) {
             amount += e.product.price;
