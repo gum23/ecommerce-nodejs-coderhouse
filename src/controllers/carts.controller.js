@@ -33,7 +33,7 @@ export const addProduct = async (req, res) => {
             name: "Add product to cart error",
             cause: generateCartErrorInfo({quantity}),
             message: "No ingreso cantidad",
-            code: EErrors.PROPERTY_EMPTY
+            code: EErrors.ERR_PROPERTY_EMPTY
         });
     }
     

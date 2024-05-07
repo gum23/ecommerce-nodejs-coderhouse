@@ -53,7 +53,7 @@ export const createProduct = async (req, res) => {
         name: "Product creation error",
         cause: generateProductsErrorInfo({title, description, code, price, status, stock, category}),
         message: "Error tratando de crear producto",
-        code: EErrors.INVALID_TYPES_ERROR
+        code: EErrors.ERR_INVALID_TYPES
       })
     }
 
