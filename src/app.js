@@ -1,5 +1,5 @@
 import express from 'express';
-import morgan from 'morgan';
+// import morgan from 'morgan';
 import handlebars from 'handlebars';
 import exphbs from 'express-handlebars';
 import { allowInsecurePrototypeAccess } from '@handlebars/allow-prototype-access';
@@ -12,7 +12,9 @@ import mongoStore from 'connect-mongo';
 import {initializePassport} from './config/passport.js';
 import passport from 'passport';
 import compression from 'express-compression';
-import { PORT } from './config.js';
+import config  from './config.js';
+
+import { addLogger } from './utils/logger.js';
 
 import './dao/db/db.js';
 import routesProducts from './routes/products.routes.js';
@@ -25,6 +27,7 @@ import routesInit from './routes/pathInit.routes.js';
 import routesGithub from './routes/github.routes.js';
 import routesMailer from './routes/mailer.routes.js';
 import routesMocking from './routes/mocking.routes.js';
+import routesLogger from './routes/logger.routes.js';
 
 import { sockets } from './sockets/sockets.js';
 
@@ -35,7 +38,7 @@ const socketServer = new Server(server);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
-app.use(morgan("dev"));
+// app.use(morgan("dev"));
 app.use(compression());
 
 initializePassport();
@@ -66,6 +69,7 @@ app.engine("handlebars", exphbs.engine({
 app.set("views", __dirname+"/views");
 app.set("view engine", "handlebars");
 
+app.use(addLogger);
 
 app.use("/", routesInit);
 app.use("/api", routesLogin);
@@ -77,9 +81,11 @@ app.use("/api", routesAuth);
 app.use("/api", routesGithub);
 app.use("/api", routesMailer);
 app.use("/api", routesMocking);
+app.use("/api", routesLogger);
 
-server.listen(PORT, () => {
-    console.log(`Server listening on port: ${PORT}`);
+const port = config.port;
+server.listen(port, () => {
+    console.log(`Server listening on port: ${port}`);
 });
 
 sockets(socketServer);

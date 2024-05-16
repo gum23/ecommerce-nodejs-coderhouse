@@ -1,15 +1,10 @@
 import mongoose from "mongoose";
-import {
-  MONGODB_USER,
-  MONGODB_PASSWORD,
-  MONGODB_CLUSTER,
-  MONGODB_DBNAME,
-} from "../../config.js";
+import config from "../../config.js";
 
 (async () => {
   try {
     const db = await mongoose.connect(
-      `mongodb+srv://${MONGODB_USER}:${MONGODB_PASSWORD}@${MONGODB_CLUSTER}/${MONGODB_DBNAME}?retryWrites=true&w=majority`
+      `mongodb+srv://${config.mongodb_user}:${config.mongodb_password}@${config.mongodb_cluster}/${config.mongodb_dbname}?retryWrites=true&w=majority`
     );
     console.log("Database is connected to: ", db.connection.name);
   } catch (error) {

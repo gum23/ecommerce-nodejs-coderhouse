@@ -1,12 +1,31 @@
-import { config } from 'dotenv';
-config();
+import dotenv from 'dotenv';
+import {Command} from 'commander';
 
-export const MONGODB_PASSWORD = process.env.MONGODB_PASSWORD || "7zrPwBUSYfhVYqPj";
-export const MONGODB_USER = process.env.MONGODB_USER || "ecommerce";
-export const MONGODB_CLUSTER = process.env.MONGODB_CLUSTER || "practicaintegradoraclus.ghxzurn.mongodb.net";
-export const MONGODB_DBNAME = process.env.MONGODB_DBNAME || "ecommerce";
-export const PORT = process.env.PORT || 4000;
+const program = new Command();
 
-//mailer
-export const EMAIL = process.env.EMAIL || "gum23coder@gmail.com";
-export const PASSWOERD_EMAIL = process.env.PASSWOERD_EMAIL || "gpyokleeyfldcuuw";
+program
+    .option('-d', 'Variable de debug', false)
+    .option('-p <port>', 'Puerto del servidor', 9090)
+    .option('--mode <mode>', 'modo de trabajo', 'develop')
+program.parse();
+
+console.log("Mode option: ", program.opts().mode);
+
+const environment = program.opts().mode;
+
+dotenv.config({
+    path: environment === "production" ? "./src/config/.env.production" :"./src/config/.env.development"
+});
+
+export default {
+    mongodb_password: process.env.MONGODB_PASSWORD,
+    mongodb_user: process.env.MONGODB_USER,
+    mongodb_cluster: process.env.MONGODB_CLUSTER,
+    mongodb_dbname: process.env.MONGODB_DBNAME,
+    port: parseInt(process.env.PORT),
+    environment: environment,
+
+    //mailer
+    email: process.env.EMAIL,
+    password_email: process.env.PASSWORD_EMAIL
+}
