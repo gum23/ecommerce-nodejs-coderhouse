@@ -1,0 +1,27 @@
+<div class="flex justify-center items-center h-screen container">
+    <div style="width: 568px;" class="shadow shadow-white/50 bg-gray-600/20 flex my-20 px-10 py-10 rounded-xl  mx-auto">
+        <div class="px-8 py-6 w-full bg-secondary">
+            <h2 class="text-2xl font-semibold mb-5 loginTitle">Selecciona tipo de Ususario</h2>
+
+            <form action="/api/users/premium" method="post" id="loginForm" class="space-y-4 mx-auto formLogin">
+                <div style="display: flex; margin: 12px 0; width: max-content;">
+                    <div style="margin-right: 8px;">
+                        <label for="user">Usuario</label>
+                        <input type="radio" id="usuario" name="rol" value="usuario"  >
+                    </div>
+                    <div style="margin-left: 8px;">
+                        <label for="premium">Usuario Premium</label>
+                        <input type="radio" id="premium" name="rol" value="premium" checked="checked" >
+                    </div>
+                </div>
+                <div>
+                    <button type="submit"
+                    class="btn btn-success loginButton">
+                    New Rol
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+  
+</div>

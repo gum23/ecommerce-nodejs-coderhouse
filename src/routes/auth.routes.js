@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import passport from 'passport';
 
+import * as ctrlAuth from '../controllers/auth.controller.js'
+
 const router = Router();
 
 
@@ -26,8 +28,8 @@ router.post("/login", (req, res, next) => {
                 return res.status(500).redirect("/api/login");
             }
             
-            
             const userData = {
+                id: user._id || "",
                 firstName: user.firstName || "",
                 rol: user.rol,
                 email: user.email || ""
@@ -35,10 +37,10 @@ router.post("/login", (req, res, next) => {
 
             if(userData.rol == "Admin"){
                 req.session.userData = userData;
-                res.status(200).redirect("/api/realtimeproducts")
+                res.status(200).redirect("/api/products")
                 return
             }
-            if(userData.rol == "usuario"){userData.cart = user.cart._id}
+            if(userData.rol == "usuario" || userData.rol == "premium"){userData.cart = user.cart._id}
             
             req.session.userData = userData;
 
@@ -59,5 +61,13 @@ router.get("/logout", (req, res) => {
         res.redirect("/api/login")
     })
 })
+
+router.post("/forgot-password", ctrlAuth.forgotPassword);
+
+router.get("/new-password/:token", (req, res) => {
+    res.render("auth/newPassword.handlebars");
+});
+
+router.post("/newPasswordControl", ctrlAuth.passControl);
 
 export default router;

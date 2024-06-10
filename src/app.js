@@ -28,6 +28,7 @@ import routesGithub from './routes/github.routes.js';
 import routesMailer from './routes/mailer.routes.js';
 import routesMocking from './routes/mocking.routes.js';
 import routesLogger from './routes/logger.routes.js';
+import routesUsers from './routes/users.routes.js';
 
 import { sockets } from './sockets/sockets.js';
 
@@ -62,6 +63,23 @@ app.engine("handlebars", exphbs.engine({
     helpers: {
                 subTotal: function(quantity, price){
                     return quantity * price;
+                },
+                valueRol: function(userRol, options) {
+                    if (userRol == "premium") {
+                        return options.fn(this);
+                    } else if(userRol == "Admin") {
+                        return options.fn(this);
+                    }
+                    return options.inverse(this);
+                },
+                buttonDelete: function(owner, user, options){
+                    
+                    if (user.rol == 'Admin') {
+                        return options.fn(this);
+                    } else if(owner == user.email){
+                        return options.fn(this);
+                    }
+                    return options.inverse(this);
                 }
             }
 }));
@@ -82,6 +100,7 @@ app.use("/api", routesGithub);
 app.use("/api", routesMailer);
 app.use("/api", routesMocking);
 app.use("/api", routesLogger);
+app.use("/api", routesUsers);
 
 const port = config.port;
 server.listen(port, () => {

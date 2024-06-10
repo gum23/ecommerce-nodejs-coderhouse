@@ -117,3 +117,20 @@ nextPage.addEventListener("click", () => {
     handlePages(nextPage.value);
 });
 
+const deleteProduct = async (idProduct) => {
+    const endPoint = `/api/products/${idProduct}`;
+    
+    try {
+        await fetch(endPoint, {
+            method: "DELETE",
+            headers: {
+                "content-type": "application/json"
+            }
+        })
+
+        location.reload();
+    } catch (error) {
+        console.log(error);
+    }
+
+}

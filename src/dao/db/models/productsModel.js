@@ -43,6 +43,9 @@ const productSchema = new Schema({
         require: true,
         trim: true
     },
+    owner: {
+        type: String
+    },
     cart: {
         type: String
     }

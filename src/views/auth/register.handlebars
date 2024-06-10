@@ -34,6 +34,17 @@
             class="text-black w-full px-4 py-2 border rounded-md focus:outline-none focus:border-blue-500" required>
         </div>
 
+        <div style="display: flex; margin: 12px 0; width: max-content;">
+          <div style="margin-right: 8px;">
+            <label for="user">Usuario</label>
+            <input type="radio" id="usuario" name="rol" value="usuario" checked="checked" >
+          </div>
+          <div style="margin-left: 8px;">
+            <label for="premium">Usuario Premium</label>
+            <input type="radio" id="premium" name="rol" value="premium" >
+          </div>
+        </div>
+
         <button type="submit"
           class="btn btn-success loginButton">
           Registrarse
@@ -47,3 +58,5 @@
     </div>
   </div>
 </div>
+
+<script src="/register.js"></script>

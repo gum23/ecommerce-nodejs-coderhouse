@@ -27,5 +27,8 @@ export default {
 
     //mailer
     email: process.env.EMAIL,
-    password_email: process.env.PASSWORD_EMAIL
+    password_email: process.env.PASSWORD_EMAIL,
+
+    //
+    secret_token: process.env.SECRET_TOKEN
 }

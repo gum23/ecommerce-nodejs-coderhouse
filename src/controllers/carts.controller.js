@@ -40,7 +40,13 @@ export const addProduct = async (req, res) => {
     try {
         const idCart = req.params.cid;
         const idProduct = req.params.pid;
+        const user = req.session.user;
         const getProduct = await productManagerMongo.getProductsById(idProduct);
+
+        if (user.email == getProduct.owner) {
+            req.session.userData = user;
+            return res.redirect("/api/products");
+        }
     
         await carsManagerMongo.addToCar(idCart, getProduct, quantity);
 

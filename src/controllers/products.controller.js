@@ -46,7 +46,7 @@ export const getProduct = async (req, res) => {
 
 export const createProduct = async (req, res) => {
   try {
-    const {title, description, code, price, status, stock, category, thumbnails} = req.body;
+    const {title, description, stock, thumbnails, category, price, status, code} = req.body;
 
     if (!title || !description || !code || !price || !status || !stock || !category) {
       CustomError.createError({
@@ -57,6 +57,27 @@ export const createProduct = async (req, res) => {
       })
     }
 
+    const creatorProd = req.session.user;
+
+    if (creatorProd.rol == 'premium') {
+      const newProduct = new Product(
+        title,
+        description,
+        code,
+        price,
+        status,
+        stock,
+        category,
+        thumbnails,
+        creatorProd.email
+      );
+  
+      req.session.userData = creatorProd;
+  
+      await ProductManager.addProduct(newProduct);
+      return res.status(200).redirect("/api/products");
+    }
+
     const newProduct = new Product(
       title,
       description,
@@ -65,11 +86,14 @@ export const createProduct = async (req, res) => {
       status,
       stock,
       category,
-      thumbnails
+      thumbnails,
+      creatorProd.rol
     );
 
-    const resClass = await ProductManager.addProduct(newProduct);
-    res.status(200).send(resClass);
+    req.session.userData = creatorProd;
+
+    await ProductManager.addProduct(newProduct);
+    res.status(200).redirect("/api/products");
   } catch (error) {
     console.error(error.cause);
     res.status(500).send(`Error de servidor: ${error}`);

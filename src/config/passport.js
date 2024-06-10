@@ -15,7 +15,7 @@ export const initializePassport = () => {
         {usernameField: "email", passReqToCallback: true},
         async (req, username, password, done) => {
             try {
-                const rol = 'usuario';
+                
                 const userData = req.body;
                 let user = await usersModel.findOne({email: username});
                 if (user) {
@@ -37,7 +37,7 @@ export const initializePassport = () => {
                     userData.age,
                     passwordCrypt,
                     idCart,
-                    rol
+                    userData.rol
                 );
                     
                 const result = await usersModel.create(newUser);

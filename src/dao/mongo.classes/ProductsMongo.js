@@ -1,7 +1,7 @@
 
 export default class ProductMongo {
     
-    constructor(title, description, code, price, stock, category, thumbnails){
+    constructor(title, description, code, price, status, stock, category, thumbnails, owner){
         this.title = title;
         this.description = description;
         this.code = code;
@@ -10,6 +10,7 @@ export default class ProductMongo {
         this.stock = stock;
         this.category = category;
         this.thumbnails = thumbnails;
+        this.owner = owner;
     }
 }
 
