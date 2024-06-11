@@ -1,0 +1,146 @@
+paths:
+  /api/products:
+    get:
+      summary: Obtiene todos los productos existentes
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Operación exitosa!! Muestra todos los productos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                 $ref: '#components/schemas/Products'
+        "500":
+          description: Error de server!!
+    post:
+      summary: Crea un nuevo producto
+      tags: 
+        - Products
+      responses:
+        "200":
+          description: Crea un nuevo producto y redirecciona a products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                 $ref: '#components/schemas/Products'
+        "500":
+          description: Error de server!
+  /api/products/{pid}:
+    get:
+      summary: Trae el detalle de un producto
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: Id del producto que se desea ver
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Operación exitosa!! muestra el detalle del producto
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                 $ref: '#components/schemas/Products'
+        "500":
+          description: Error de server!!
+    put:
+      summary: Actualiza una o varias propiedades de un producto
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: Id del producto a actualizar
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Operación exitosa!! se actulizó el producto correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                 $ref: '#components/schemas/Products'
+        "500":
+          description: Error de server!!
+    delete:
+      summary: Elimina un producto determinado
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: Id del producto que se desea eliminar
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Operación exitosa!! se pudo eliminar el producto
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                 $ref: '#components/schemas/Products'
+        "500":
+          description: Error de server!!
+
+components:
+  schemas:
+    Products:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Autogenerado por mongo
+        title:
+          type: String
+          description: Titulo del producto
+        description:
+          type: String
+          description: Descripción del producto
+        code:
+          type: String
+          decription: Código único identificador del producto
+        price:
+          type: Number
+          description: Valor monetario del producto
+        status:
+          type: Boolean
+          description: Estado del rpoducto
+        stock:
+          type: Number
+          description: Cantidad de la que se dispone
+        category:
+          type: String
+          description: Categoria a la que pertenece el producto
+        thumbnails:
+          type: Object
+          description: Contenedor de las imagenes representativas del producto
+        owner:
+          type: String
+          description: Información de quien creo el producto
+      example:
+        _id: ObjectId("65c59ab5799a18639f334f04")
+        title: guitarra
+        description: Les paul Gibson
+        code: gtr001
+        price: 1550000
+        status: true
+        stock: 5
+        category: cuerdas
+        thumbnails: [links de las Imagenes]
+        owner: Admin

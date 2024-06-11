@@ -14,7 +14,7 @@ export const mail = async (req, res) => {
     const user = req.session.user;
     
     let message = await transporter.sendMail({
-        from: `Ecommerce CoderHouse <${EMAIL}>`,
+        from: `Ecommerce CoderHouse <${config.email}>`,
         to: `${user.email}`,
         subject: "Compra en Ecommerce",
         text: "Su compra se a registrado correctamente",

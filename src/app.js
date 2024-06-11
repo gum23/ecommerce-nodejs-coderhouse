@@ -12,6 +12,8 @@ import mongoStore from 'connect-mongo';
 import {initializePassport} from './config/passport.js';
 import passport from 'passport';
 import compression from 'express-compression';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUIExpress from 'swagger-ui-express';
 import config  from './config.js';
 
 import { addLogger } from './utils/logger.js';
@@ -36,6 +38,20 @@ import { sockets } from './sockets/sockets.js';
 const app = express();
 const server = createServer(app);
 const socketServer = new Server(server);
+
+const swaggerOptions = {
+    definition: {
+        openapi: "3.0.0",
+        info: {
+            title: "Documentacion api ecommerce nodejs Coderhouse",
+            description: "Documentacion usando Swagger"
+        }
+    },
+    apis: ["./src/docs/**/*.yaml"]
+}
+
+const specs = swaggerJSDoc(swaggerOptions);
+app.use("/apidocs", swaggerUIExpress.serve, swaggerUIExpress.setup(specs)); 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))

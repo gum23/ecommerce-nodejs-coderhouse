@@ -1,0 +1,165 @@
+paths:
+  /api/carts/{cid}:
+    get:
+      summary: Obtiene un carrito especificado con el parametro id
+      tags:
+        - Carts
+      parameters: 
+        - name: cid
+          in: path
+          required: true
+          description: Id del carrito que quiere buscar
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Operación exitosa!! Retorna el carrito especificado. Luego renderiza la vista cart.handlebars
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#components/schemas/Carts'
+        "500": 
+          description: Error de server!!
+  /api/carts/{cid}/product/{pid}:
+    post:
+      summary: Agrega un nuevo producto al carrito
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: Id del carrito al que se agrega el producto
+          schema:
+            $type: String
+        - name: pid
+          in: path
+          required: true
+          description: Id del producto agregado al carrito
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Operación exitosa!! redirecciona al carrito
+          content:
+            application/json:
+              schema:
+                type: array
+                $ref: '#components/schemas/Carts'
+        "500":
+          description: Error de server!!
+    put:
+      summary: Actualiza la cantidad de un producto determinado en el carrito
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: Id del carrito donde está el producto a actualizar
+          schema:
+            $type: String
+        - name: pid
+          in: path
+          required: true
+          description: Id del producto que se desea actualizar
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Operación exitosa!! Nuevo valor de Quantity actualizado
+        "500":
+          description: Error de server!!
+    delete:
+      summary: Elimina un producto determinado del carrito
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: Id del carrito del cual eliminar el producto deseado
+          schema:
+            $type: String
+        - name: pid
+          in: path
+          required: true
+          description: Id del producto que se desea eliminar
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Operación exitosa!! Se eliminó correctamente el producto
+        "500":
+          description: Error de server!!
+  /api/{cid}/purchase:
+    get:
+      summary: Termina la compra, y vacia el carrito de compras
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: Id del carrito del cual se debe culminar la compra
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Operación exitosa!! termina la compra y crea el ticket de la compra
+          content:
+            application/json:
+              schema:
+                type: array
+                $ref: '#components/schemas/Ticket'
+        "500":
+          description: Error de server!!
+
+
+components:
+  schemas:
+    Carts:
+      type: object
+      properties:
+        _id: 
+          type: ObjectId
+          description: Es autogenerado de mongo
+        date:
+          type: String
+          description: Fecha cuando se carga producto al carrito
+        products:
+          type: Object
+          description: Array que contiene los productos cargados al carrito
+      example:
+        _id: ObjectId("6631e7ee4b1ae8ee293470cc")
+        date: 10/06/2024
+        products: [objeto con los productos]
+    Ticket:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Es autogenerado por mongo
+        code:
+          type: String
+          description: Codigo que identifica al ticket
+        purchase_datatime:
+          type: String
+          description: Fecha y hora de compra
+        amount:
+          type: Number
+          description: Monto total de la compra
+        purchaser:
+          type: String
+          decription: Email del comprador
+      example:
+        _id: ObjectId("666861f71a026d6cee1a0340")
+        code: 3365f13f-87e4-48e9-b932-a591c293b8f2
+        purchase_datatime: "2024-06-11 11:40:55"
+        amount: 13100
+        purchaser: comprador@gmail.com
+
+        
+
