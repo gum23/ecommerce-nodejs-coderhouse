@@ -3,6 +3,7 @@ import productManager from "../dao/mongo.classes/ProductManagerMongo.js";
 import CustomError from "../services/errors/CustomError.js";
 import { generateProductsErrorInfo } from "../services/errors/info.js";
 import EErrors from "../services/errors/enums.js";
+import jwt from 'jsonwebtoken';
 
 const ProductManager = new productManager();
 
@@ -16,9 +17,13 @@ export const getProducts = async (req, res) => {
 
     let products = await ProductManager.getProducts(limit, sort, query, page, disponible);
     
-    const user = req.session.userData;
-    const cart = req.session.userData.cart;
-    
+    // const user = req.session.userData;
+    // const cart = req.session.userData.cart || "";
+
+    const cookie = req.cookies['coderCookie'];
+    const user = jwt.verify(cookie, 'coderSecret');
+    const cart = user.cart || "";
+
     products.payload.forEach(e => {
       e.cart = cart;
     });
@@ -26,8 +31,9 @@ export const getProducts = async (req, res) => {
     req.session.user = user;
     
     delete req.session.userData;
-
-    res.status(200).render("products.handlebars", {products, user});
+    
+    res.status(200).send(products);
+    // res.status(200).render("products.handlebars", {products, user});
   } catch (error) {
     res.status(500).send(`Error de servidor: ${error}`);
   }
@@ -57,8 +63,18 @@ export const createProduct = async (req, res) => {
       })
     }
 
-    const creatorProd = req.session.user;
+    let creatorProd = req.session.user;
 
+    if (!creatorProd) {
+      const cookie = req.cookies['coderCookie'];
+      const user = jwt.verify(cookie, 'coderSecret');
+      creatorProd = {rol: user.rol, email: user.email};
+    }
+
+    if (creatorProd.rol === 'usuario') {
+      return res.send({Error: "No tiene permitido crear productos"});
+    }
+    
     if (creatorProd.rol == 'premium') {
       const newProduct = new Product(
         title,
@@ -92,8 +108,10 @@ export const createProduct = async (req, res) => {
 
     req.session.userData = creatorProd;
 
-    await ProductManager.addProduct(newProduct);
-    res.status(200).redirect("/api/products");
+    const result = await ProductManager.addProduct(newProduct);
+    
+    res.status(200).send({status: "success", payload: result}) //Respuesta test
+    // res.status(200).redirect("/api/products");
   } catch (error) {
     console.error(error.cause);
     res.status(500).send(`Error de servidor: ${error}`);
@@ -128,7 +146,9 @@ export const deleteProduct = async (req, res) => {
 };
 
 export function auth(req, res, next) {
-  const user = req.session.userData;
+  // const userData = req.session.userData;
+  const cookie = req.cookies['coderCookie'];
+  const user = jwt.verify(cookie, 'coderSecret');
   
   if (user == undefined) {
     return res.redirect("/api/login");

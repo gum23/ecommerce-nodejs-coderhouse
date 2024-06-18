@@ -7,8 +7,8 @@ class ProductManagerMongo {
     if (productFound) return "El producto ya existe";
 
     const newProduct = new productsModel(product);
-    await newProduct.save();
-    return "Producto nuevo guardado";
+    const result = await newProduct.save();
+    return result;
   }
 
   async updateProduct(id, product) {

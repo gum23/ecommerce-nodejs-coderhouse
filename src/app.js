@@ -68,7 +68,7 @@ app.use(session({
         ttl: 300
     }),
     secret: "cursoNodeCoder",
-    resave: true,
+    resave: false,
     saveUninitialized: true
 }));
 

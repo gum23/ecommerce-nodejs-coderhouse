@@ -25,12 +25,12 @@ class CarsManagerMongo {
       );
       return `Se actualizó la cantidad en el producto con ID: ${product.id}`;
     } else {
-      await cartsModel.findByIdAndUpdate(idCart, {
+      const result = await cartsModel.findByIdAndUpdate(idCart, {
         $push: {
           products: { $each: [{ product: product, quantity: quantity }] },
         },
       });
-      return `El producto ID: ${product.id} / Fue agregado con quantity: ${quantity}`;
+      return result;
     }
   }
 

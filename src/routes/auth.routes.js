@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import passport from 'passport';
+import jwt from 'jsonwebtoken';
 
 import * as ctrlAuth from '../controllers/auth.controller.js'
 
@@ -7,7 +8,8 @@ const router = Router();
 
 
 router.post("/register", passport.authenticate('register', {failureRedirect: '/api/failedRegister'}), (req, res) => {
-    res.redirect("/api/login");
+    res.status(200).send(req.user); //Response testing
+    // res.redirect("/api/login");
 });
 
 router.get("/failedRegister", (req, res) => {
@@ -36,15 +38,19 @@ router.post("/login", (req, res, next) => {
             }
 
             if(userData.rol == "Admin"){
-                req.session.userData = userData;
-                res.status(200).redirect("/api/products")
+                const token = jwt.sign(userData, 'coderSecret', { expiresIn: "1h"});
+                req.session.userData = token;
+                res.cookie('coderCookie', token, {maxAge: 3600000}).send({status: "success", message: "Logged in"});  //response test
+                // res.status(200).redirect("/api/products")
                 return
             }
             if(userData.rol == "usuario" || userData.rol == "premium"){userData.cart = user.cart._id}
             
-            req.session.userData = userData;
+            const token = jwt.sign(userData, 'coderSecret', { expiresIn: "1h"});
+            req.session.userData = token;
 
-            res.status(200).redirect("/api/products");
+            res.cookie('coderCookie', token, {maxAge: 3600000}).send({status: "success", message: "Logged in"});  //response test
+            // res.cookie('coderCookie', token, {maxAge: 3600000}).redirect("/api/products");
         })
     })(req, res, next);
 

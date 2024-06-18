@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon src/app.js",
-    "start": "nodemon src/app.js --mode production"
+    "start": "nodemon src/app.js --mode production",
+    "testing": "nodemon src/app.js --mode testing",
+    "test": "mocha test/products.test.js"
   },
   "keywords": [],
   "author": "Eduardo Unrrein",
@@ -31,6 +33,7 @@
     "passport-github2": "^0.1.12",
     "passport-local": "^1.0.0",
     "socket.io": "^4.7.4",
+    "supertest-session": "^5.0.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
     "uuid4": "^2.0.3",

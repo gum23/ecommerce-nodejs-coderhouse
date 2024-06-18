@@ -7,6 +7,7 @@ import uuid4 from 'uuid4';
 import CustomError from "../services/errors/CustomError.js";
 import { generateCartErrorInfo } from "../services/errors/info.js";
 import EErrors from "../services/errors/enums.js";
+import jwt from 'jsonwebtoken';
 
 const productManagerMongo = new ProductManagerMongo();
 const carsManagerMongo = new CartsManagerMongo();
@@ -18,7 +19,8 @@ export const getCar = async (req, res) => {
         const cart = await carsManagerMongo.showProducts(idCar);
         
         req.session.cartPurchase = cart;
-        res.status(200).render("cart.handlebars", {cart});
+        res.status(200).send(cart); //Response test
+        // res.status(200).render("cart.handlebars", {cart});
     } catch (error) {
         res.status(500).send(`Error de servidor ${error}`);
     }
@@ -40,7 +42,10 @@ export const addProduct = async (req, res) => {
     try {
         const idCart = req.params.cid;
         const idProduct = req.params.pid;
-        const user = req.session.user;
+        // const user = req.session.user;
+        const cookie = req.cookies['coderCookie'];
+        const user = jwt.verify(cookie, 'coderSecret');
+        
         const getProduct = await productManagerMongo.getProductsById(idProduct);
 
         if (user.email == getProduct.owner) {
@@ -48,9 +53,9 @@ export const addProduct = async (req, res) => {
             return res.redirect("/api/products");
         }
     
-        await carsManagerMongo.addToCar(idCart, getProduct, quantity);
-
-        res.redirect(`/api/carts/${idCart}`);
+        const result = await carsManagerMongo.addToCar(idCart, getProduct, quantity);
+        res.status(200).send(result); //Response test
+        // res.redirect(`/api/carts/${idCart}`);
     } catch (error) {
         console.error(error.cause);
         res.status(500).send(`Error de servidor ${error}`);
