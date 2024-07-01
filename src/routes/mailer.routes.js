@@ -7,4 +7,8 @@ router.get("/mail", mailer.mail);
 
 router.get("/recoverPassword", mailer.recoverPass);
 
+router.get("/deleteUsers", mailer.deleteUsers);
+
+router.get("/deleteProduct", mailer.deleteProduct);
+
 export default router;

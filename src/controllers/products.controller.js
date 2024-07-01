@@ -4,6 +4,7 @@ import CustomError from "../services/errors/CustomError.js";
 import { generateProductsErrorInfo } from "../services/errors/info.js";
 import EErrors from "../services/errors/enums.js";
 import jwt from 'jsonwebtoken';
+import config from '../config.js';
 
 const ProductManager = new productManager();
 
@@ -17,23 +18,16 @@ export const getProducts = async (req, res) => {
 
     let products = await ProductManager.getProducts(limit, sort, query, page, disponible);
     
-    // const user = req.session.userData;
-    // const cart = req.session.userData.cart || "";
-
-    const cookie = req.cookies['coderCookie'];
-    const user = jwt.verify(cookie, 'coderSecret');
+    const user = req.user;
     const cart = user.cart || "";
-
+    
     products.payload.forEach(e => {
       e.cart = cart;
     });
 
     req.session.user = user;
     
-    delete req.session.userData;
-    
-    res.status(200).send(products);
-    // res.status(200).render("products.handlebars", {products, user});
+    res.status(200).render("products.handlebars", {products, user});
   } catch (error) {
     res.status(500).send(`Error de servidor: ${error}`);
   }
@@ -110,8 +104,8 @@ export const createProduct = async (req, res) => {
 
     const result = await ProductManager.addProduct(newProduct);
     
-    res.status(200).send({status: "success", payload: result}) //Respuesta test
-    // res.status(200).redirect("/api/products");
+    // res.status(200).send({status: "success", payload: result}) //Respuesta test
+    res.status(200).redirect("/api/products");
   } catch (error) {
     console.error(error.cause);
     res.status(500).send(`Error de servidor: ${error}`);
@@ -133,12 +127,22 @@ export const updateProduct = async (req, res) => {
 export const deleteProduct = async (req, res) => {
   try {
     const id = req.params.pid;
-  const resDelete = await ProductManager.deleteProduct(id);
+    const product = await ProductManager.getProductsById(id);
+    
+    if (product.owner != "Admin") {
+      const data = {
+        title: product.title,
+        owner: product.owner
+      }
+      req.session.deleteProduct = data;
+    }
 
-  res.status(200).send({ 
-    message: "El producto eliminado", 
-    data: resDelete 
-  });
+    const resDelete = await ProductManager.deleteProduct(id);
+
+    res.status(200).send({ 
+      message: "El producto eliminado", 
+      data: resDelete 
+    });
 
   } catch (error) {
     res.status(500).send(`Error de servidor: ${error}`);  
@@ -148,10 +152,19 @@ export const deleteProduct = async (req, res) => {
 export function auth(req, res, next) {
   // const userData = req.session.userData;
   const cookie = req.cookies['coderCookie'];
-  const user = jwt.verify(cookie, 'coderSecret');
-  
-  if (user == undefined) {
+
+  if (!cookie) {
     return res.redirect("/api/login");
   }
-  return next();
+
+  jwt.verify(cookie, `${config.secret_token}`, (err, decoded) => {
+
+    if (err) {
+      return res.redirect("/api/login");
+    }
+
+    req.user = decoded;
+    return next();
+  });
+  
 }

@@ -1,6 +1,9 @@
 import { Router } from 'express';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
+import moment from 'moment';
+import usersModel from '../dao/db/models/usersModel.js';
+import config from '../config.js';
 
 import * as ctrlAuth from '../controllers/auth.controller.js'
 
@@ -8,8 +11,7 @@ const router = Router();
 
 
 router.post("/register", passport.authenticate('register', {failureRedirect: '/api/failedRegister'}), (req, res) => {
-    res.status(200).send(req.user); //Response testing
-    // res.redirect("/api/login");
+    res.redirect("/api/login");
 });
 
 router.get("/failedRegister", (req, res) => {
@@ -38,19 +40,16 @@ router.post("/login", (req, res, next) => {
             }
 
             if(userData.rol == "Admin"){
-                const token = jwt.sign(userData, 'coderSecret', { expiresIn: "1h"});
-                req.session.userData = token;
-                res.cookie('coderCookie', token, {maxAge: 3600000}).send({status: "success", message: "Logged in"});  //response test
-                // res.status(200).redirect("/api/products")
+                const token = jwt.sign(userData, `${config.secret_token}`, { expiresIn: "1h"});
+                res.cookie('coderCookie', token, {maxAge: 3600000}).redirect("/api/products");
                 return
             }
+
             if(userData.rol == "usuario" || userData.rol == "premium"){userData.cart = user.cart._id}
             
-            const token = jwt.sign(userData, 'coderSecret', { expiresIn: "1h"});
-            req.session.userData = token;
-
-            res.cookie('coderCookie', token, {maxAge: 3600000}).send({status: "success", message: "Logged in"});  //response test
-            // res.cookie('coderCookie', token, {maxAge: 3600000}).redirect("/api/products");
+            const token = jwt.sign(userData, `${config.secret_token}`, { expiresIn: '1h'});
+           
+            res.cookie('coderCookie', token, {maxAge: 3600000}).redirect("/api/products");
         })
     })(req, res, next);
 
@@ -60,7 +59,24 @@ router.get("/failedLogin", (req, res) => {
     res.send("Error al querer ingresar");
 })
 
-router.get("/logout", (req, res) => {
+router.get("/logout", async (req, res) => {
+    const cookie = req.cookies['coderCookie'];
+    const user = jwt.verify(cookie, `${config.secret_token}`);
+    
+    if (user.rol == "Admin") {
+        req.session.destroy((err) => {
+            if (err) res.send("filed logout!");
+    
+            res.redirect("/api/login")
+        })
+        return
+    }
+
+    const currentDate = moment();
+    const formatCurrentDate = currentDate.format('YYYY-MM-DD');
+
+    await usersModel.findByIdAndUpdate(user.id, {$set: {'last_connection.logout': formatCurrentDate}});
+
     req.session.destroy((err) => {
         if (err) res.send("filed logout!");
 

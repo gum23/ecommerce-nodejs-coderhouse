@@ -15,6 +15,7 @@ import compression from 'express-compression';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUIExpress from 'swagger-ui-express';
 import config  from './config.js';
+import cors from 'cors';
 
 import { addLogger } from './utils/logger.js';
 
@@ -31,6 +32,7 @@ import routesMailer from './routes/mailer.routes.js';
 import routesMocking from './routes/mocking.routes.js';
 import routesLogger from './routes/logger.routes.js';
 import routesUsers from './routes/users.routes.js';
+import routesPayments from './routes/payments.routes.js';
 
 import { sockets } from './sockets/sockets.js';
 
@@ -38,6 +40,7 @@ import { sockets } from './sockets/sockets.js';
 const app = express();
 const server = createServer(app);
 const socketServer = new Server(server);
+app.use(cors());
 
 const swaggerOptions = {
     definition: {
@@ -69,7 +72,8 @@ app.use(session({
     }),
     secret: "cursoNodeCoder",
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {secure: false}
 }));
 
 app.use(express.static(__dirname+"/public"));
@@ -96,6 +100,36 @@ app.engine("handlebars", exphbs.engine({
                         return options.fn(this);
                     }
                     return options.inverse(this);
+                },
+                admin: function(rol, options) {
+                    if (rol == "Admin") {
+                        return options.fn(this);
+                    }
+                    return options.inverse(this);
+                },
+                valueCart: function(rol, options){
+                    if (rol != "Admin") {
+                        return options.fn(this);
+                    }
+                    return options.inverse(this);
+                },
+                buttonComprar: function(cart, options){
+                    if (cart.products.length >= 1) {
+                        return options.fn(this);
+                    }
+                    return options.inverse(this);
+                },
+                notPurchase: function(products, options){
+                    if (products.length > 0) {
+                        return options.fn(this);
+                    }
+                    return options.inverse(this);
+                },
+                pay: function(products, options){
+                    if (products.length > 0) {
+                        return options.fn(this);
+                    }
+                    return options.inverse(this);
                 }
             }
 }));
@@ -117,6 +151,7 @@ app.use("/api", routesMailer);
 app.use("/api", routesMocking);
 app.use("/api", routesLogger);
 app.use("/api", routesUsers);
+app.use("/api", routesPayments);
 
 const port = config.port;
 server.listen(port, () => {

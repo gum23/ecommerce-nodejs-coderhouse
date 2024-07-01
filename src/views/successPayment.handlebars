@@ -1,0 +1,19 @@
+<div class="flex justify-center items-center h-screen container" style="margin-top: 70px;">
+    <div style="width: 568px;" class="shadow shadow-white/50 bg-gray-600/20 flex my-20 px-10 py-10 rounded-xl  mx-auto">
+        <div class="px-8 py-6 w-full bg-secondary" style="padding: 16px;">
+            <h2 class="text-2xl font-semibold mb-5 loginTitle" style="color: white;">¡¡Gracias por su compra!!</h2>
+            <div style="display: flex; justify-content: center; margin-bottom: 24px;">
+                <i class="bi bi-bag-check" style="font-size: 50px; color: white;"></i>
+            </div>
+            <div>
+                <p class="loginTitle" style="color: white;">El pago fué exitoso</p>
+                <p class="loginTitle" style="color: white;">Presione el botón "Home" de abajo</p>
+            </div>
+            <form method="post" action="/api/success" style="display: flex; justify-content: center;">
+                <button class="btn btn-dark">Home</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="/success.js"></script>

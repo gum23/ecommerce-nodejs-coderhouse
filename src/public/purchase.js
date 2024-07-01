@@ -15,6 +15,22 @@ document.addEventListener('DOMContentLoaded', () => {
 const path = window.location.pathname.split('/');
 const cartId = path.slice(2, 3).pop();
 
-const toCart = () => {
-    return window.location.href = `/api/mail`;
+
+const payment = async (purchaseData) => {
+    const endPoint = "/api/payment-intents";
+
+    const code = {
+        code: purchaseData
+    }
+    
+    const response = await fetch(endPoint, {
+        method: 'POST',
+        headers: {
+            "content-type": "application/json"
+        },
+        body: JSON.stringify(code)
+    });
+
+    const data = await response.json();
+    return window.location.href = `${data.payload.url}`;
 }

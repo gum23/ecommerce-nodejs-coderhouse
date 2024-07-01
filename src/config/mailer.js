@@ -32,7 +32,7 @@ export const mail = async (req, res) => {
 
 export const recoverPass = async (req, res) => {
     const mailData = req.session.mailData;
-
+    
     let message = await transporter.sendMail({
         from: `Ecommerce CoderHouse <${config.email}>`,
         to: `${mailData.email}`,
@@ -56,6 +56,60 @@ export const recoverPass = async (req, res) => {
     req.session.token = mailData.token;
 
     res.render("mailPassword.handlebars");
+}
+
+export const deleteUsers = async (req, res) => {
+    const emails = req.session.emailDelete;
+    
+    let message = await transporter.sendMail({
+        from: `Ecommerce CoderHouse <${config.email}>`,
+        to: `${emails.emails}`,
+        subject: "Usuarios eliminados por inactividad",
+        text: "Su cuenta ha sido eliminada por inactividad",
+        html: `
+        <div style="margin: 0 auto; border: 1px solid black; width: max-content; padding: 28px;">
+            <h2>Su cuenta ha sido eliminada por inactividad</h2>
+            </br>
+            <p>La inactividad limite para no tener este inconveniente
+               es de 2 días.
+            </p>
+            </br>
+            <p>
+               Pasado ese plazo se eliminará la cuenta,
+               sucederá de la misma forma, si llegase a terner
+               otra cuenta.
+            </p>
+            </br>
+            <p>
+                Evite inconenientes
+            </p>
+            </br>
+            <p>
+               Atte. Ecommerce CoderHouse
+            </p>
+        </div>
+        `
+    });
+}
+
+export const deleteProduct = async (req, res) => {
+    const data = req.session.deleteProduct;
+
+    let message = await transporter.sendMail({
+        from: `Ecommerce CoderHouse <${config.email}>`,
+        to: `${data.owner}`,
+        subject: "Producto eliminado",
+        text: "Se ha eliminado un producto suyo",
+        html: `
+        <div style="margin: 0 auto; border: 1px solid red; width: max-content; padding: 28px;">
+            <h2>Producto eliminado</h2>
+            </br>
+            <p>El Administrador ha decidido eliminar un producto suyo</p>
+            </br>
+            <p>Con el titulo: ${data.title}</p>
+        </div>
+        `
+    })
 }
 
 

@@ -1,0 +1,35 @@
+<div class="container mt-5">
+    <div style="display: flex; margin-bottom: 28px;">
+        <div class="saludoContainer" style="width: 80%;">
+            <h1 class="saludoUsuario">Lista de usuarios</h1>
+        </div>
+        <div style="width: 20%;">
+            <button class="btn btn-danger" onclick="deleteUsersInactivty()">Eliminar inactivos</button>
+        </div>
+    </div>
+    <div style="width: 90%; margin: 0 auto; height: 2px; background-color: gray;"></div>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3" style="margin: 0 auto;">
+        {{#each usersData}}
+            <div class="card mb-3 mx-4my-4" style="max-width: 20rem; margin: 12px;" id="cardBody-{{@index}}">
+                <div class="card-header bg-primary text-white">Dias de inactividad: {{this.daysOfInactivity}}</div>
+                <div class="card-body">
+                    <div style="display: flex; justify-content: space-around;">
+                        <h4 class="card-title text-black" id="titleRol-{{@index}}">{{this.rol}}</h4>
+                        <div style="width: max-content; display: flex; justify-content: center; margin: 0 auto;" id="buttonContainer">
+                            <button id="btn-{{@index}}" class="btn btn-success" onclick="changeRol('{{this.email}}', '{{this.rol}}')" hidden>Nuevo rol</button>
+                        </div>
+                    </div>
+                    <p class="card-text">
+                        <ul class="card-text list-unstyled">
+                            <li class="bi bi-person-fill"> {{this.firstName}}</li>
+                            <li class="bi bi-envelope-at"> {{this.email}}</li>
+                        </ul>
+                    </p>
+                    
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>
+
+<script src="/users.js"></script>

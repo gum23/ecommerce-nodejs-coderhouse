@@ -1,3 +1,6 @@
+<div style="padding: 16px; margin: 16px; display: flex; justify-content: end;">
+    <a href="/api/products"><button class="btn btn-dark">Home</button></a>
+</div>
 <div style="color: white; width: max-content; margin: 48px auto;">
     <h1>Finalizando la compra</h1>
 </div>
@@ -24,24 +27,28 @@
         <div style="display: flex; justify-content: end;">
             <p style="width: 30%; margin-top: 48px;">Total de la compra</p><p style="width: max-content; margin-top: 48px; margin-right: 30px;" id="total"></p>  
         </div>
-        <div style=" display: flex; justify-content: end; margin: 16px 16px;">
-            <a onclick="toCart()"><button class="btn btn-success">Terminar compra</button></a>
-        </div>
+        {{#pay productsPurchase}}
+            <div style=" display: flex; justify-content: end; margin: 16px 16px;">
+                <a onclick="payment('{{newPurchase.code}}')"><button class="btn btn-success">Pagar</button></a>
+            </div>
+        {{/pay}}
     </div>
-    <div style="margin-top: 40px; color: beige; display: flex; flex-direction: column; align-items: center;">
-        <div style="display: flex; justify-content: center;">
-            <h5>Productos sin stock suficiente</h5>
+    {{#notPurchase productsNotPurchase}}
+        <div style="margin-top: 40px; color: beige; display: flex; flex-direction: column; align-items: center;">
+            <div style="display: flex; justify-content: center;">
+                <h5>Productos sin stock suficiente</h5>
+            </div>
+            <div style="display: flex; border: 1px solid white; border-radius: 4px; width: max-content; margin: 24px auto; padding: 12px;">
+                {{#each productsNotPurchase}}
+                    <p style="width: max-content; margin-right: 24px;">Producto: </p>
+                    <p style="width: max-content;">{{this.product.title}}</p>
+                {{/each}}
+            </div>
+            <div>
+                <p style="width: 400px; text-align: center;">Los productos sin stock suficiente para realizar la compra, serán devueltos al carrito.</p>
+            </div>
         </div>
-        <div style="display: flex; border: 1px solid white; border-radius: 4px; width: max-content; margin: 24px auto; padding: 12px;">
-            {{#each productsNotPurchase}}
-                <p style="width: max-content; margin-right: 24px;">Producto: </p>
-                <p style="width: max-content;">{{this.product.title}}</p>
-            {{/each}}
-        </div>
-        <div>
-            <p style="width: 400px; text-align: center;">Los productos sin stock suficiente para realizar la compra, serán devueltos al carrito.</p>
-        </div>
-    </div>
+    {{/notPurchase}}
 </div>
 
 <script src="/purchase.js"></script>

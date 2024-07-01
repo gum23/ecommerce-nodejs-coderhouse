@@ -1,10 +1,15 @@
 <div class="container mt-5">
     <div class="saludoContainer">
         <div style="display: flex; flex-direction: column;">
-            <a href="/api/carts/{{user.cart}}"><button class="btn btn-dark" style="margin: 4px;">Carrito</button></a>
+            {{#valueCart user.rol}}
+                <a href="/api/carts/{{user.cart}}"><button class="btn btn-dark" style="margin: 4px;">Carrito</button></a>
+            {{/valueCart}}
             {{#valueRol user.rol}}
                 <a href="/api/newProduct/"><button class="btn btn-success" style="margin: 4px;">New Product</button></a>
             {{/valueRol}}
+            {{#admin user.rol}}
+                <a href="/api/users/"><button class="btn btn-info" style="margin: 4px;">Usuarios</button></a>
+            {{/admin}}
         </div>
         <p class="saludoUsuario">¡Buena Navegación {{user.rol}} {{user.firstName}}!</p>
         <div style="display: flex; flex-direction: column;">

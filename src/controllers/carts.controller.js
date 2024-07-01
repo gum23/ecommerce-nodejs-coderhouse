@@ -1,5 +1,4 @@
 import ProductManagerMongo from "../dao/mongo.classes/ProductManagerMongo.js";
-// import CartsMongo from '../dao/mongo.classes/CartsMongo.js';
 import CartsManagerMongo from '../dao/mongo.classes/CartsManagerMongo.js';
 import moment from 'moment';
 import ticketModel from '../dao/db/models/TicketModel.js';
@@ -8,6 +7,7 @@ import CustomError from "../services/errors/CustomError.js";
 import { generateCartErrorInfo } from "../services/errors/info.js";
 import EErrors from "../services/errors/enums.js";
 import jwt from 'jsonwebtoken';
+import config from '../config.js';
 
 const productManagerMongo = new ProductManagerMongo();
 const carsManagerMongo = new CartsManagerMongo();
@@ -17,10 +17,9 @@ export const getCar = async (req, res) => {
     try {
         const idCar = req.params.cid;
         const cart = await carsManagerMongo.showProducts(idCar);
-        
+
         req.session.cartPurchase = cart;
-        res.status(200).send(cart); //Response test
-        // res.status(200).render("cart.handlebars", {cart});
+        res.status(200).render("cart.handlebars", {cart});
     } catch (error) {
         res.status(500).send(`Error de servidor ${error}`);
     }
@@ -42,9 +41,9 @@ export const addProduct = async (req, res) => {
     try {
         const idCart = req.params.cid;
         const idProduct = req.params.pid;
-        // const user = req.session.user;
+        
         const cookie = req.cookies['coderCookie'];
-        const user = jwt.verify(cookie, 'coderSecret');
+        const user = jwt.verify(cookie, `${config.secret_token}`);
         
         const getProduct = await productManagerMongo.getProductsById(idProduct);
 
@@ -53,9 +52,9 @@ export const addProduct = async (req, res) => {
             return res.redirect("/api/products");
         }
     
-        const result = await carsManagerMongo.addToCar(idCart, getProduct, quantity);
-        res.status(200).send(result); //Response test
-        // res.redirect(`/api/carts/${idCart}`);
+        await carsManagerMongo.addToCar(idCart, getProduct, quantity);
+        
+        res.redirect(`/api/carts/${idCart}`);
     } catch (error) {
         console.error(error.cause);
         res.status(500).send(`Error de servidor ${error}`);
@@ -86,7 +85,7 @@ export const deleteOneProduct = async (req, res) => {
 
         await carsManagerMongo.deleteOneProduct(idCart, idProduct);
 
-        res.status(200).redirect("/api/carts/65db7e6be4645424b0f0289a");
+        res.status(200).send("Se eliminó correctamente");
     } catch (error) {
         res.status(500).send(error);
     }
@@ -95,7 +94,8 @@ export const deleteOneProduct = async (req, res) => {
 export const deleteAllProducts = async (req, res) => {
     const idCart = req.params.cid;
     await carsManagerMongo.deleteAllProducts(idCart);
-    res.status(200).render("cart.handlebars");
+
+    res.status(200).send("Se vació el carrito");
 }
 
 export const purchase = async (req, res) => {
@@ -107,6 +107,8 @@ export const purchase = async (req, res) => {
         let productsPurchase = [];
         let productsNotPurchase = [];
         let amount = 0;
+
+        let updateProducts = [];
 
         for(const e of products) {
             
@@ -121,12 +123,21 @@ export const purchase = async (req, res) => {
             if (product.stock >= e.quantity) {
                 amount += e.product.price;
                 productsPurchase.push(e);
-                await carsManagerMongo.deleteOneProduct(user.cart, idProduct);
-                await productManagerMongo.updateProduct(product._id, {$inc:{stock: - e.quantity}});
+
+                const updateProduct = {
+                    id: product._id,
+                    quantity: e.quantity
+                }
+                
+                updateProducts.push(updateProduct);
+
             } else {
                 productsNotPurchase.push(e);
             }
         };
+        
+        req.session.updateProducts = updateProducts;
+        req.session.deleteProduct = {cart: user.cart}
 
         const code = uuid4();
         const currentDate = moment();
@@ -138,11 +149,16 @@ export const purchase = async (req, res) => {
             amount: amount,
             purchaser: user.email
         };
+        
+        let newPurchase;
+        if (updateProducts.length > 0) {
+            newPurchase = new ticketModel(purchase);
+            await newPurchase.save();
+        }
 
-        const newPurchase = new ticketModel(purchase);
-        await newPurchase.save();
+        req.session.newPurchase = newPurchase;
 
-        res.status(200).render("purchase.handlebars", {productsPurchase, productsNotPurchase});
+        res.status(200).render("purchase.handlebars", {productsPurchase, productsNotPurchase, newPurchase});
     } catch (error) {
         res.status(500).send("Error de servidor", error);
     }

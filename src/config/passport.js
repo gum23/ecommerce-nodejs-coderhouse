@@ -63,6 +63,11 @@ export const initializePassport = () => {
                     return done(null, false);
                 }
 
+                const currentDate = moment();
+                const formatCurrentDate = currentDate.format('YYYY-MM-DD');
+
+                await usersModel.findByIdAndUpdate(user._id, {$set: {'last_connection.login': formatCurrentDate}});
+
                 const comparePass = compareHashAndPass(password, user);
                 if (comparePass == false) return done(null, false);
 

@@ -126,11 +126,29 @@ const deleteProduct = async (idProduct) => {
             headers: {
                 "content-type": "application/json"
             }
-        })
+        });
+
+        sendMail();
 
         location.reload();
     } catch (error) {
         console.log(error);
     }
 
+}
+
+const sendMail = async () => {
+    const endPoint = "/api/deleteProduct";
+
+    try {
+        await fetch(endPoint, {
+            method: "GET",
+            headers: {
+                "content-type": "application/json"
+            }
+        });
+
+    } catch (error) {
+        console.log(error);
+    }
 }

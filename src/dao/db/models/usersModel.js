@@ -34,12 +34,31 @@ const userSchema = new Schema({
     rol: {
         type: String,
         default: "usuario"
+    },
+    documents: {
+        type: [
+            {
+                name: {
+                    type: String
+                },
+                reference: {
+                    type: String
+                }
+            }
+        ]
+    },
+    last_connection: {
+        login: {
+            type: String
+        },
+        logout: {
+            type: String
+        }
     }
 },{
     versionKey: false,
     timestamps: true,
     strict: false
 });
-
 
 export default model("users", userSchema);
