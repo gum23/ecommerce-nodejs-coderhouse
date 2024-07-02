@@ -1,7 +1,7 @@
 #Se ignora la carpeta node_modules
 node_modules
 
-.env.development
+src/config/.env.development
 
 .env.production
 
