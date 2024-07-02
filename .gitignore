@@ -1,8 +1,8 @@
 #Se ignora la carpeta node_modules
 node_modules
 
-src/config/.env.development
+/src/config/.env.development
 
-.env.production
+/src/config/.env.production
 
-.env.testing
+/src/config/.env.testing
