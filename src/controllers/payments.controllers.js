@@ -1,6 +1,6 @@
 import ticketModel from '../dao/db/models/TicketModel.js';
 import PaymentService from '../services/payments.js';
-import config from '../config.js';
+// import config from '../config.js';
 import CartsManagerMongo from '../dao/mongo.classes/CartsManagerMongo.js';
 import ProductManagerMongo from '../dao/mongo.classes/ProductManagerMongo.js';
 
@@ -29,8 +29,8 @@ export const paymentIntent = async (req, res) => {
             },
             ],
             mode: 'payment',
-            success_url: `http://localhost:${config.port}/api/success`,
-            cancel_url: `http://localhost:${config.port}/api/cancel`,
+            success_url: `https://ecommerce-nodejs-coderhouse-production.up.railway.app/api/success`,
+            cancel_url: `https://ecommerce-nodejs-coderhouse-production.up.railway.app/api/cancel`,
         }
 
         const service = new PaymentService;
