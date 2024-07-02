@@ -1,7 +1,7 @@
 import Product from "../dao/mongo.classes/ProductsMongo.js";
 import ProductManager from "../dao/mongo.classes/ProductManagerMongo.js";
 import ChatMongo from "../dao/mongo.classes/ChatMongo.js";
-import ChatManagerMongo from '../dao/mongo.classes/chatManagerMongo.js';
+import ChatManagerMongo from '../dao/mongo.classes/ChatManagerMongo.js';
 
 const productManager = new ProductManager();
 const chatManagerMongo = new ChatManagerMongo();
