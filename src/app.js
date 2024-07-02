@@ -18,7 +18,7 @@ import cors from 'cors';
 
 import { addLogger } from './utils/logger.js';
 
-import './dao/db/db.js';
+import db from './dao/db/db.js';
 import routesProducts from './routes/products.routes.js';
 import routesCarts from './routes/carts.routes.js';
 import routesViews from './routes/views.routes.js';
@@ -40,6 +40,8 @@ const app = express();
 const server = createServer(app);
 const socketServer = new Server(server);
 app.use(cors());
+
+db();
 
 const swaggerOptions = {
     definition: {

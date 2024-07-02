@@ -152,7 +152,7 @@ export const deleteProduct = async (req, res) => {
 export function auth(req, res, next) {
   
   const cookie = req.cookies['coderCookie'];
-  console.log("es acá:",cookie);
+  
   if (!cookie) {
     return res.redirect("/api/login");
   }
