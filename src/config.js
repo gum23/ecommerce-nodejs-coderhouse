@@ -22,6 +22,7 @@ export default {
     mongodb_user: process.env.MONGODB_USER,
     mongodb_cluster: process.env.MONGODB_CLUSTER,
     mongodb_dbname: process.env.MONGODB_DBNAME,
+    // mongodb_uri: process.env.MONGODB_URI,
     port: parseInt(process.env.PORT, 10),
     environment: environment,
 
