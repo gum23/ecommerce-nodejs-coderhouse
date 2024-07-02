@@ -67,7 +67,7 @@ router.get("/logout", async (req, res) => {
         req.session.destroy((err) => {
             if (err) res.send("filed logout!");
     
-            res.redirect("/api/login")
+            res.cookie('coderCookie', '', {maxAge: 0, httpOnly: true}).redirect("/api/login")
         })
         return
     }
@@ -80,7 +80,7 @@ router.get("/logout", async (req, res) => {
     req.session.destroy((err) => {
         if (err) res.send("filed logout!");
 
-        res.redirect("/api/login")
+        res.cookie('coderCookie', '', {maxAge: 0, httpOnly: true}).redirect("/api/login")
     })
 })
 

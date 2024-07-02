@@ -33,6 +33,10 @@ export default {
     email: process.env.EMAIL,
     password_email: process.env.PASSWORD_EMAIL,
 
+    //github
+    clientid_github: process.env.CLIENTID_GITHUB,
+    clientsecret_github: process.env.CLIENTSECRET_GITHUB,
+
     //key_secret_token
     secret_token: process.env.SECRET_TOKEN,
 

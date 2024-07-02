@@ -8,6 +8,7 @@ import CartsMongo from '../dao/mongo.classes/CartsMongo.js';
 import moment from 'moment';
 import { createHash, compareHashAndPass } from '../utils/bcrypt.util.js';
 import config from '../config.js';
+import {auth} from '../controllers/products.controller.js';
 
 const cartsManagerMongo = new CartsManagerMongo();
 
@@ -81,8 +82,8 @@ export const initializePassport = () => {
 
     passport.use('github', new github.Strategy(
         {
-            clientID: "Iv1.a34fbf12c727d0bf",
-            clientSecret: "4d42250f35bb8dd203422b9af16ab26992f0a35e",
+            clientID: `${config.clientid_github}`,
+            clientSecret: `${config.clientsecret_github}`,
             callbackURL: `http://localhost:${config.port}/api/signIn/github`
         },
         async (accessToken, refreshToken, profile, done) => {

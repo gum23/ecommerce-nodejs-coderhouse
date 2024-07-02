@@ -13,7 +13,7 @@ router.put("/products/:pid", productsCtrl.updateProduct);
 
 router.delete("/products/:pid", productsCtrl.deleteProduct);
 
-router.get("/newProduct/", (req, res) => {
+router.get("/newProduct/", productsCtrl.auth, (req, res) => {
     res.render("createProduct.handlebars")
 })
 

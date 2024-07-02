@@ -7,9 +7,9 @@ import usersModel from '../dao/db/models/usersModel.js';
 
 const router = Router();
 
-router.get("/github", passport.authenticate("github", {}), (req, res) => {});
+router.get("/github", passport.authenticate("github"));
 
-router.get("/signIn/github", passport.authenticate("github", {}), async (req, res) => {
+router.get("/signIn/github", passport.authenticate("github", { failureRedirect: '/api/login'}), async (req, res) => {
 
     const data = {
         id: req.user._id,

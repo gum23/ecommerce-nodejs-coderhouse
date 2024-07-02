@@ -1,23 +1,30 @@
 import { Router } from 'express';
 import usersModel from '../dao/db/models/usersModel.js';
 import moment from 'moment';
+import jwt from 'jsonwebtoken';
+import config from '../config.js';
 
 const router = Router();
 
 router.get("/users/premium/:uid", (req, res) => {
-    const user = req.session.user;
+    
+    const token = req.cookies['coderCookie']
+    const user = jwt.verify(token, `${config.secret_token}`);
+    
     return res.render("changeRol.handlebars", {user});
 });
 
 router.post("/users/premium", async (req, res) => {
     const dataBody = req.body;
-    const user = req.session.user;
+    
+    const token = req.cookies['coderCookie']
+    const user = jwt.verify(token, `${config.secret_token}`);
 
     try {
         const result = await usersModel.findByIdAndUpdate(user.id, {rol: dataBody.rol}, {new: true});
         
         user.rol = result.rol;
-        
+
         res.redirect("/api/products");
     } catch (error) {
         res.send(error);
