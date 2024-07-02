@@ -29,8 +29,8 @@ export const paymentIntent = async (req, res) => {
             },
             ],
             mode: 'payment',
-            success_url: `https://ecommerce-nodejs-coderhouse-production.up.railway.app/api/success`,
-            cancel_url: `https://ecommerce-nodejs-coderhouse-production.up.railway.app/api/cancel`,
+            success_url: `${config.route_root}/api/success`,
+            cancel_url: `${config.route_root}/api/cancel`,
         }
 
         const service = new PaymentService;

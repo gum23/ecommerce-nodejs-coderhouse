@@ -39,5 +39,7 @@ export default {
 
     //Claves de stripe
     public_key_stripe: process.env.PUBLIC_KEY_STRIPE,
-    private_key_stripe: process.env.PRIVATE_KEY_STRIPE
+    private_key_stripe: process.env.PRIVATE_KEY_STRIPE,
+
+    route_root: process.env.ROUTE_ROOT
 }
