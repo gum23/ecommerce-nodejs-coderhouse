@@ -3,7 +3,7 @@ import config from '../config.js';
 
 export default class PaymentService {
     constructor(){
-        this.stripe = new Stripe(config.private_key_stripe);
+        this.stripe = new Stripe(`${config.private_key_stripe}`);
     }
 
     createPaymentIntent = async(data) => {
