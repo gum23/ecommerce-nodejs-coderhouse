@@ -7,6 +7,7 @@ import CartsManagerMongo from '../dao/mongo.classes/CartsManagerMongo.js';
 import CartsMongo from '../dao/mongo.classes/CartsMongo.js';
 import moment from 'moment';
 import { createHash, compareHashAndPass } from '../utils/bcrypt.util.js';
+import config from '../config.js';
 
 const cartsManagerMongo = new CartsManagerMongo();
 
@@ -65,7 +66,7 @@ export const initializePassport = () => {
 
                 const currentDate = moment();
                 const formatCurrentDate = currentDate.format('YYYY-MM-DD');
-
+                
                 await usersModel.findByIdAndUpdate(user._id, {$set: {'last_connection.login': formatCurrentDate}});
 
                 const comparePass = compareHashAndPass(password, user);
@@ -82,18 +83,31 @@ export const initializePassport = () => {
         {
             clientID: "Iv1.a34fbf12c727d0bf",
             clientSecret: "4d42250f35bb8dd203422b9af16ab26992f0a35e",
-            callbackURL: "http://localhost:8080/api/signIn/github"
+            callbackURL: `http://localhost:${config.port}/api/signIn/github`
         },
         async (accessToken, refreshToken, profile, done) => {
             try {
-                let {name, email} = profile._json
+
+                const name = profile.username;
+                let {email} = profile._json
                 let user = await usersModel.findOne({email});
                 if (!user) {
+
+                    const dateNow = moment();
+                    const date = dateNow.format('YYYY-MM-DD');
+                    const newCar = new CartsMongo([]);
+                    const resCreateCart = await cartsManagerMongo.createCar(date, newCar);
+
+                    const idCart = resCreateCart._id;
+
                     user = await usersModel.create({
                         firstName: name,
                         email: email,
+                        age: "",
+                        password: "",
+                        cart: idCart,
                         rol: "usuario",
-                        github: profile
+                        github: profile,
                     });   
                 }
 

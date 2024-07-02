@@ -1,4 +1,5 @@
 import productsModel from "../db/models/productsModel.js";
+import config from '../../config.js';
 
 class ProductManagerMongo {
   async addProduct(product) {
@@ -33,8 +34,8 @@ class ProductManagerMongo {
     const productFound = await productsModel.paginate({...querySearch}, op);
     if (!productFound) return "no existe ningun producto";
     
-    if(productFound.hasPrevPage = true) productFound.prevLink = `http://localhost:8080/api/products?page=${productFound.prevPage}`;
-    if(productFound.hasNextPage = true) productFound.nextLink = `http://localhost:8080/api/products?page=${productFound.nextPage}`;
+    if(productFound.hasPrevPage = true) productFound.prevLink = `http://localhost:${config.port}/api/products?page=${productFound.prevPage}`;
+    if(productFound.hasNextPage = true) productFound.nextLink = `http://localhost:${config.port}/api/products?page=${productFound.nextPage}`;
     
     const responseProducts = {
       payload: productFound.docs,

@@ -33,7 +33,7 @@ export default {
     email: process.env.EMAIL,
     password_email: process.env.PASSWORD_EMAIL,
 
-    //
+    //key_secret_token
     secret_token: process.env.SECRET_TOKEN,
 
     //Claves de stripe

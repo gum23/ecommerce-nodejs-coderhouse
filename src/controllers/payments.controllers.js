@@ -3,7 +3,6 @@ import PaymentService from '../services/payments.js';
 import config from '../config.js';
 import CartsManagerMongo from '../dao/mongo.classes/CartsManagerMongo.js';
 import ProductManagerMongo from '../dao/mongo.classes/ProductManagerMongo.js';
-import TicketModel from '../dao/db/models/TicketModel.js';
 
 const productManagerMongo = new ProductManagerMongo();
 const carsManagerMongo = new CartsManagerMongo();

@@ -102,9 +102,9 @@ export const createProduct = async (req, res) => {
 
     req.session.userData = creatorProd;
 
-    const result = await ProductManager.addProduct(newProduct);
+    await ProductManager.addProduct(newProduct);
     
-    // res.status(200).send({status: "success", payload: result}) //Respuesta test
+    
     res.status(200).redirect("/api/products");
   } catch (error) {
     console.error(error.cause);
@@ -150,7 +150,7 @@ export const deleteProduct = async (req, res) => {
 };
 
 export function auth(req, res, next) {
-  // const userData = req.session.userData;
+  
   const cookie = req.cookies['coderCookie'];
 
   if (!cookie) {
@@ -162,7 +162,7 @@ export function auth(req, res, next) {
     if (err) {
       return res.redirect("/api/login");
     }
-
+    
     req.user = decoded;
     return next();
   });

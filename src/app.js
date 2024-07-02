@@ -1,5 +1,4 @@
 import express from 'express';
-// import morgan from 'morgan';
 import handlebars from 'handlebars';
 import exphbs from 'express-handlebars';
 import { allowInsecurePrototypeAccess } from '@handlebars/allow-prototype-access';
@@ -57,8 +56,7 @@ const specs = swaggerJSDoc(swaggerOptions);
 app.use("/apidocs", swaggerUIExpress.serve, swaggerUIExpress.setup(specs)); 
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }))
-// app.use(morgan("dev"));
+app.use(express.urlencoded({ extended: true }));
 app.use(compression());
 
 initializePassport();

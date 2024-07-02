@@ -16,7 +16,7 @@ router.get("/forgot-password", (req, res) => {
 });
 
 router.get("/current", (req, res) => {
-    // const user = req.session.user;
+    
     const cookie = req.cookies['coderCookie'];
     const user = jwt.verify(cookie, 'coderSecret');
     res.status(200).json(user)

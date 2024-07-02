@@ -17,7 +17,6 @@ router.post("/users/premium", async (req, res) => {
         const result = await usersModel.findByIdAndUpdate(user.id, {rol: dataBody.rol}, {new: true});
         
         user.rol = result.rol;
-        // req.session.user = userData;
         
         res.redirect("/api/products");
     } catch (error) {
@@ -28,10 +27,10 @@ router.post("/users/premium", async (req, res) => {
 router.get("/users", async (req, res) => {
     const users = await usersModel.find();
 
-    const calculateDaysOfInactivity = (lastLoginDate) => {
+    const calculateDaysOfInactivity = (lastLogoutDate) => {
         const currentDate = moment();
-        const lastLoginMoment = moment(lastLoginDate,'YYYY-MM-DD');
-        const duration = moment.duration(currentDate.diff(lastLoginMoment));
+        const lastLogoutMoment = moment(lastLogoutDate,'YYYY-MM-DD');
+        const duration = moment.duration(currentDate.diff(lastLogoutMoment));
         let daysOfInactivity = parseInt(duration.asDays()) >= 0 ? parseInt(duration.asDays()) : 'Campo Vacio';
         return daysOfInactivity;
     }
