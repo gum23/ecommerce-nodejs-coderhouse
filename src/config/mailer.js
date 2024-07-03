@@ -19,8 +19,14 @@ export const mail = async (req, res) => {
         subject: "Compra en Ecommerce",
         text: "Su compra se a registrado correctamente",
         html: `
-        <div>
+        <div style="margin: 0 auto; border: 1px solid green; width: max-content; padding: 28px;">
+            <h2>Aviso de compra terminada</h2>
+            </br>
             <p>Su compra se ha registrado correctamente</p>
+            </br>
+            <p>El pago fué exitoso!!</p>
+            </br>
+            <p>¡¡Gracias por su compra!!</p>
         </div>
         `
     });

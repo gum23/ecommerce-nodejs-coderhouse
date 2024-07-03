@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
 import config from "../../config.js";
 
-// const URI = `mongodb+srv://${config.mongodb_user}:${config.mongodb_password}@${config.mongodb_cluster}/${config.mongodb_dbname}?retryWrites=true&w=majority`;
-const URI = `${config.mongodb_uri}`;
+const URI = `mongodb+srv://${config.mongodb_user}:${config.mongodb_password}@${config.mongodb_cluster}/${config.mongodb_dbname}?retryWrites=true&w=majority`;
+
 const db = async () => { 
   
   try {
