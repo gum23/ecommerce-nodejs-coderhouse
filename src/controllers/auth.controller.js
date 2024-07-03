@@ -16,7 +16,7 @@ export const forgotPassword = async (req, res) => {
     try {
         const user = await usersModel.findOne({email: email});
         
-        const tokenJWT = jwt.sign({userId: user._id, username: user.email}, `${config.secret_token}`, {expiresIn: '1h'});
+        const tokenJWT = jwt.sign({userId: user._id, username: user.email}, `${config.recover_token}`, {expiresIn: '1h'});
         
         verificationLink = `${config.route_root}/api/new-password/${tokenJWT}`;
 
@@ -43,23 +43,25 @@ export const forgotPassword = async (req, res) => {
 export const passControl = async (req, res) => {
     const token = req.session.token;
     const newPass = req.body;
-
+    
     let data;
     try {
-        data = jwt.verify(token, `${config.secret_token}`)
+        data = jwt.verify(token, `${config.recover_token}`);
+
+        const user = await usersModel.findOne({email: data.username});
+        const comparepass = compareHashAndPass(newPass.password, user);
+
+        if (comparepass == true) {
+            return res.redirect("/api/login");
+        } 
+
+        const newPassCrypt = await createHash(newPass.password);
+        await usersModel.findByIdAndUpdate(data.userId, {password: newPassCrypt});
+
+        res.redirect("/api/login");
     } catch (error) {
-        return res.json({message: "El token ha vencido!"});
+        return res.redirect("/api/tokenVencido");
     }
 
-    const user = await usersModel.findOne({email: data.username});
-    const comparepass = compareHashAndPass(newPass.password, user);
-
-    if (comparepass == true) {
-        return res.json({message: "La contraseña no puede ser igual a la anterior!"});
-    } 
-
-    const newPassCrypt = await createHash(newPass.password);
-    await usersModel.findByIdAndUpdate(data.userId, {password: newPassCrypt});
-
-    res.redirect("/api/login");
+    
 }

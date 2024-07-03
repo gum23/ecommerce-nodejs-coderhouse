@@ -90,6 +90,10 @@ router.get("/new-password/:token", (req, res) => {
     res.render("auth/newPassword.handlebars");
 });
 
+router.get("/tokenVencido", (req, res) => {
+    res.render("auth/tokenVencido.handlebars");
+})
+
 router.post("/newPasswordControl", ctrlAuth.passControl);
 
 export default router;

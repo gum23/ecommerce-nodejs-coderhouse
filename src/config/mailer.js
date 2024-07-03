@@ -45,14 +45,16 @@ export const recoverPass = async (req, res) => {
         subject: "Recover password",
         text: "Recupero de su clave",
         html: `
-        <div>
+        <div style="margin: 0 auto; border: 1px solid green; width: max-content; padding: 28px;">
             <h2>Haga click en el boton de abajo</h2>
             </br>
-            <p>
-                El siguiente botón lo redireccionará a una vista donde podrá
-                restablecer su contraseña.
-                </br>Tenga en cuenta que no podrá ser la misma.
-            </p>
+            <p>El siguiente botón lo redireccionará a una vista</p>
+            </br>
+            <p> donde podrá restablecer su contraseña.</p>
+            </br>
+            <p>Tenga en cuenta que no podrá ser la misma.</p>
+            </br>
+            <h4>Recuerde que el link vence pasado un tiempo</h4>
             </br>
             <a href="${mailData.link}"><button>Link</button></a>
         </div>

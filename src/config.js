@@ -37,6 +37,9 @@ export default {
     //key_secret_token
     secret_token: process.env.SECRET_TOKEN,
 
+    //Token recover password
+    recover_token: process.env.RECOVER_TOKEN,
+
     //Claves de stripe
     public_key_stripe: process.env.PUBLIC_KEY_STRIPE,
     private_key_stripe: process.env.PRIVATE_KEY_STRIPE,
