@@ -84,7 +84,7 @@ export const initializePassport = () => {
         {
             clientID: `${config.clientid_github}`,
             clientSecret: `${config.clientsecret_github}`,
-            callbackURL: `http://localhost:${config.port}/api/signIn/github`
+            callbackURL: `${config.route_root}/api/signIn/github`
         },
         async (accessToken, refreshToken, profile, done) => {
             try {

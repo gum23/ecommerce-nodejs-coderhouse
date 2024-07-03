@@ -25,3 +25,6 @@
 {"level":"warning","message":"POST en /api/payment-intents - at 2/7/2024 / 15:22:25"}
 {"level":"error","message":"POST en /api/payment-intents - at 2/7/2024 / 15:22:25"}
 {"level":"fatal","message":"POST en /api/payment-intents - at 2/7/2024 / 15:22:25"}
+warning: Prueba de log leve Warning --> en Endpoint /api/loggerTest
+error: Prueba de log leve Error --> en Endpoint /api/loggerTest
+fatal: Prueba de log leve Fatal --> en Endpoint /api/loggerTest

@@ -15,7 +15,7 @@ export const getProducts = async (req, res) => {
     const query = req.query.query;
     const page = parseInt(req.query.page) || 1;
     const disponible = req.query.disponible;
-    console.log(disponible);
+    
     let products = await ProductManager.getProducts(limit, sort, query, page, disponible);
     
     const user = req.user;
