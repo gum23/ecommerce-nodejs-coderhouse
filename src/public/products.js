@@ -86,6 +86,7 @@ queryPercusion.addEventListener("click", () => {
 });
 
 const handleDispo = (stockValue) => {
+    console.log(stockValue);
     urlSearchParams.set("disponible", stockValue);
     window.location.href = `${location.pathname}?${urlSearchParams}`;
 

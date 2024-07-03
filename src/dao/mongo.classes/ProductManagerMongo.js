@@ -25,13 +25,14 @@ class ProductManagerMongo {
 
     const orderPrice = sort === -1 ? 'desc' : 'asc';
     const querySearch = query ? {category: query} : {};
+    const dispo = disponible == 'stock' ? {stock : {$gt: 0}} : {};
 
     const op = {
       page: page,
       limit: limit,
       sort: {price: orderPrice}
     }
-    const productFound = await productsModel.paginate({...querySearch}, op);
+    const productFound = await productsModel.paginate({...querySearch, ...dispo}, op);
     if (!productFound) return "no existe ningun producto";
     
     if(productFound.hasPrevPage = true) productFound.prevLink = `${config.route_root}/api/products?page=${productFound.prevPage}`;
