@@ -18,7 +18,7 @@ export const forgotPassword = async (req, res) => {
         
         const tokenJWT = jwt.sign({userId: user._id, username: user.email}, `${config.secret_token}`, {expiresIn: '1h'});
         
-        verificationLink = `http://localhost:${config.port}/api/new-password/${tokenJWT}`;
+        verificationLink = `${config.route_root}/api/new-password/${tokenJWT}`;
 
         const mailData = {
             link: verificationLink,

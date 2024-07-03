@@ -62,7 +62,7 @@ router.get("/failedLogin", (req, res) => {
 router.get("/logout", async (req, res) => {
     const cookie = req.cookies['coderCookie'];
     const user = jwt.verify(cookie, `${config.secret_token}`);
-    
+    console.log(user);
     if (user.rol == "Admin") {
         req.session.destroy((err) => {
             if (err) res.send("filed logout!");

@@ -19,6 +19,7 @@ export const getCar = async (req, res) => {
         const cart = await carsManagerMongo.showProducts(idCar);
 
         req.session.cartPurchase = cart;
+        
         res.status(200).render("cart.handlebars", {cart});
     } catch (error) {
         res.status(500).send(`Error de servidor ${error}`);

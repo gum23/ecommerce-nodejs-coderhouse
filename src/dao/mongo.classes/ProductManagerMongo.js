@@ -34,8 +34,8 @@ class ProductManagerMongo {
     const productFound = await productsModel.paginate({...querySearch}, op);
     if (!productFound) return "no existe ningun producto";
     
-    if(productFound.hasPrevPage = true) productFound.prevLink = `http://localhost:${config.port}/api/products?page=${productFound.prevPage}`;
-    if(productFound.hasNextPage = true) productFound.nextLink = `http://localhost:${config.port}/api/products?page=${productFound.nextPage}`;
+    if(productFound.hasPrevPage = true) productFound.prevLink = `${config.route_root}/api/products?page=${productFound.prevPage}`;
+    if(productFound.hasNextPage = true) productFound.nextLink = `${config.route_root}/api/products?page=${productFound.nextPage}`;
     
     const responseProducts = {
       payload: productFound.docs,
@@ -53,7 +53,7 @@ class ProductManagerMongo {
     return responseProducts;
   }
 
-  async getProductsById(id, quantity) {
+  async getProductsById(id) {
     const productFound = await productsModel.findById(id);
     if (!productFound) return "El producto buscado no existe";
 

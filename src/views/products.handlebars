@@ -17,7 +17,9 @@
                 <a href="/api/logout"><button class="btn btn-danger">Salir</button></a>
                 <a href="/api/contacto"><button class="btn btn-info" style="margin: 0 15px;">Chat</button></a>
             </div>
-            <a href="/api/users/premium/{{user.id}}"><button class="btn btn-success" style="margin: 0 15px;">PREMIUM</button></a>
+            {{#valueCart user.rol}}
+                <a href="/api/users/premium/{{user.id}}"><button class="btn btn-success" style="margin: 0 15px;">PREMIUM</button></a>
+            {{/valueCart}}
         </div>
     </div>
     <h1 class="allProducts">Products Filters</h1> 

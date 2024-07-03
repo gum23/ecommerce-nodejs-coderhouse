@@ -41,5 +41,6 @@ export default {
     public_key_stripe: process.env.PUBLIC_KEY_STRIPE,
     private_key_stripe: process.env.PRIVATE_KEY_STRIPE,
 
+    //Rutas raiz segun entorno
     route_root: process.env.ROUTE_ROOT
 }

@@ -3,6 +3,7 @@ import usersModel from '../dao/db/models/usersModel.js';
 import moment from 'moment';
 import jwt from 'jsonwebtoken';
 import config from '../config.js';
+import { auth } from '../controllers/products.controller.js';
 
 const router = Router();
 
@@ -14,18 +15,27 @@ router.get("/users/premium/:uid", (req, res) => {
     return res.render("changeRol.handlebars", {user});
 });
 
-router.post("/users/premium", async (req, res) => {
-    const dataBody = req.body;
+router.post("/users/premium", auth, async (req, res) => {
     
-    const token = req.cookies['coderCookie']
-    const user = jwt.verify(token, `${config.secret_token}`);
-
     try {
-        const result = await usersModel.findByIdAndUpdate(user.id, {rol: dataBody.rol}, {new: true});
+        const dataBody = req.body;
         
-        user.rol = result.rol;
+        const token = req.cookies['coderCookie']
+        const user = jwt.verify(token, `${config.secret_token}`);
 
-        res.redirect("/api/products");
+        const newRol = await usersModel.findByIdAndUpdate(user.id, {rol: dataBody.rol}, {new: true});
+
+        const userData = {
+            id: newRol._id,
+            firstName: newRol.firstName || "",
+            rol: newRol.rol,
+            email: newRol.email || "",
+            cart: newRol.cart
+        }
+
+        const newToken = jwt.sign(userData, `${config.secret_token}`, { expiresIn: "1h"});
+
+        res.cookie('coderCookie', newToken, {maxAge: 3600000, httpOnly: true}).redirect("/api/products");
     } catch (error) {
         res.send(error);
     }
